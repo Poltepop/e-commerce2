@@ -1,17 +1,28 @@
 <x-app-layout>
+    
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        {{-- breadcrumbs --}}
+        <div class="breadcrumbs text-sm">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li>Products</li>
+            </ul>
+        </div>
+        
+        {{-- Header --}}
+        <div class="flex justify-between items-center">
+            <x-layout.admin.header>
+                Products
+            </x-layout.admin.header>
+
+            <button class="btn btn-warning rounded-xl">Create</button>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <livewire:admin.product-page/>
-                </div>
-            </div>
+    {{-- Content --}}
+    <div class="py-5">
+        <div class="max-w-7xl mx-4 sm:px-6 md:mx-auto lg:px-8">
+            <livewire:admin.product-page/>
         </div>
     </div>
 </x-app-layout>
