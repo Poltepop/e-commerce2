@@ -21,4 +21,11 @@ class ProductServiceImpl implements ProductService {
         ]);
     }
 
+    public function delete(int $productId): void
+    {
+        $isExist = Product::select('id')->find($productId);
+        if ($isExist !== null) {
+            $isExist->delete();
+        }
+    }
 }

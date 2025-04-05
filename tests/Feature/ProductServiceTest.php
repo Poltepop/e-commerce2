@@ -6,6 +6,7 @@ use App\Livewire\Admin\ProductPage;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
+use Database\Seeders\ProductSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
@@ -35,5 +36,17 @@ class ProductServiceTest extends TestCase
 
         self::assertSame(1, $result->count());
         self::assertSame('Laptop Gaming', $result[0]->name);
+    }
+
+    public function testDeleteProduct(): void
+    {
+        $this->seed(ProductSeeder::class);
+        $productService = app(ProductService::class);
+        $product = Product::select(['id', 'name', 'slug'])->where('slug', 'superstar-jumbo')->first();
+        self::assertNotNull($product);
+        
+        $productService->delete($product->id);
+        $result = Product::select('id')->where('slug', 'superstar-jumbo')->first();
+        self::assertNull($result);
     }
 }
