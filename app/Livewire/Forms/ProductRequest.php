@@ -8,8 +8,8 @@ use Livewire\Form;
 class ProductRequest extends Form
 {
     public string $name;
-    public float $price;
-    public float $weight;
+    public string $price = '';
+    public string $weight = '';
     public ?string $short_description = null;
     public ?string $description = null;
     public string $status;
