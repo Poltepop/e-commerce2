@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware([OnlyAdminMiddleware::class, 'auth'])
+Route::middleware(['OnlyAdmin', 'auth'])
         ->controller(ProductController::class)->group(function () {
     Route::get('/admin/products', 'adminProduct')->name('admin.products');
 });
