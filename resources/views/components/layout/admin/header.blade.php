@@ -1,0 +1,1 @@
+<h1 class=" text-black font-extrabold text-3xl">{{ $slot }}</h1>
