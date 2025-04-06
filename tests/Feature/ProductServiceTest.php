@@ -21,9 +21,9 @@ class ProductServiceTest extends TestCase
     public function testCreateProduct(): void
     {
         $productService = app(ProductService::class);
-        $req = Livewire::test(ProductPage::class)->instance()->productRequest;
-
+        $req = new Product();
         $req->name = 'Laptop Gaming';
+        $req->slug = 'Laptop-Gaming';
         $req->price = '200.000';
         $req->weight = '2';
         $req->short_description = 'Laptop kenceng';
@@ -44,7 +44,7 @@ class ProductServiceTest extends TestCase
         $productService = app(ProductService::class);
         $product = Product::select(['id', 'name', 'slug'])->where('slug', 'superstar-jumbo')->first();
         self::assertNotNull($product);
-        
+
         $productService->delete($product->id);
         $result = Product::select('id')->where('slug', 'superstar-jumbo')->first();
         self::assertNull($result);
