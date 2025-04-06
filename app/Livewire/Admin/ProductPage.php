@@ -11,6 +11,17 @@ class ProductPage extends Component
 {
     use SearchProduct;
     public ProductRequest $productRequest;
+    public array $productSelected = [];
+    public array $allProductId = [];
+    public bool $isSelectAll = false;
+
+    public function mount(): void
+    {
+        $productid = Product::select(['id'])->get();
+        foreach ($productid as $value) {
+            $this->allProductId[] = $value->id;
+        }
+    }
 
     public function readProducts()
     {
@@ -29,6 +40,25 @@ class ProductPage extends Component
     {
         return Product::select('price')->get()->avg('price');
     }
+
+    public function changeProductSelected(?int $id = null, bool $selectAll = false): void
+    {
+        if ($selectAll) {
+            $this->isSelectAll = $this->isSelectAll ? false : true;
+            $this->productSelected = $this->isSelectAll ? $this->allProductId : [];
+        } else {
+            if (in_array($id, $this->productSelected)) {
+                // delete id
+                $this->productSelected = array_diff($this->productSelected, [$id]);
+                // reset index
+                $this->productSelected = array_values($this->productSelected);
+            } else {
+                // add id
+                $this->productSelected[] = $id;
+            }
+        }
+    }
+
     public function render()
     {
         return view('livewire.admin.product-page', [
