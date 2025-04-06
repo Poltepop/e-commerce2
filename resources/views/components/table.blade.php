@@ -37,7 +37,8 @@
                             <input
                                 type="checkbox"
                                 class="checkbox"
-                                x-on:click=" selectAll = selectAll ? false : true; console.log(selectAll);" />
+                                x-on:click=" selectAll = selectAll ? false : true; console.log(selectAll);"
+                                wire:click="changeProductSelected(null, true)" />
                         </label>
                     </th>
                     @foreach ($headers as $header)
