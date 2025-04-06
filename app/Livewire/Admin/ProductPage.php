@@ -54,7 +54,7 @@ class ProductPage extends Component
                 $this->productSelected = array_values($this->productSelected);
             } else {
                 // add id
-                $this->productSelected[] = $id;
+                $this->productSelected[] = $id; 
             }
         }
     }

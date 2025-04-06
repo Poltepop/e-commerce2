@@ -15,7 +15,7 @@
                 Products
             </x-layout.admin.header>
 
-            <button class="btn btn-warning rounded-xl">Create</button>
+            <a href="{{ route('form.product.create') }}" class="btn btn-warning rounded-xl">Create</a>
         </div>
     </x-slot>
 
