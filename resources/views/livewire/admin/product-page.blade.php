@@ -4,7 +4,7 @@
         {{-- total products --}}
         <x-layout.admin.card class="w-full flex-col px-10">
             <h1 class=" text-gray-500">Total products</h1>
-            <h2 class="text-4xl font-bold">66</h2>
+            <h2 class="text-4xl font-bold">{{ $productQty }}</h2>
         </x-layout.admin.card>
         {{-- Products inventory --}}
         <x-layout.admin.card class="w-full flex-col px-10">
@@ -14,7 +14,7 @@
         {{-- Avg Price --}}
         <x-layout.admin.card class="w-full flex-col px-10">
             <h1 class=" text-gray-500">Average price</h1>
-            <h2 class="text-4xl font-bold">66</h2>
+            <h2 class="text-4xl font-bold">Rp. {{ number_format($avgProductPrice, 2) }}</h2>
         </x-layout.admin.card>
     </div>
 
@@ -22,8 +22,8 @@
     {{-- <x-layout.admin.card> --}}
         {{-- table --}}
        <x-table :headers="['Image','Name','Price','Weight','Short Description', 'Description', 'status', 'Aksi']">
-        @foreach ($products as $product)            
-        <tr>
+        @foreach ($products as $product)
+        <tr wire:key='{{ $product->id }}'>
             <th>
                 <label>
                     <input type="checkbox" class="checkbox" />

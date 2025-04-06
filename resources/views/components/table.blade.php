@@ -7,9 +7,13 @@
             <option>Han Solo</option>
             <option>Greedo</option>
         </select>
-    
+
         <label class="input input-bordered flex items-center gap-2 rounded-xl">
-            <input type="text" class="grow" placeholder="Search" />
+            <input
+                type="text"
+                class="grow"
+                placeholder="Search"
+                wire:model.live.debounce.1000ms='searchUser' />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -35,7 +39,7 @@
                     </th>
                     @foreach ($headers as $header)
                     <th>{{ $header }}</th>
-                    @endforeach    
+                    @endforeach
                 </tr>
             </thead>
             <tbody>
