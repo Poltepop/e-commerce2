@@ -1,6 +1,6 @@
 @props(['headers'])
 
-<div class=" bg-white rounded-2xl shadow-sm">
+<div class=" bg-white rounded-2xl shadow-sm" x-data="{ selectAll: false }">
     <div class="border-b-2 p-5 w-full flex justify-between gap-2">
         <select class="select select-bordered w-full max-w-xs rounded-xl">
             <option disabled selected>Who shot first?</option>
@@ -34,7 +34,10 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" class="checkbox" />
+                            <input
+                                type="checkbox"
+                                class="checkbox"
+                                x-on:click=" selectAll = selectAll ? false : true; console.log(selectAll);" />
                         </label>
                     </th>
                     @foreach ($headers as $header)

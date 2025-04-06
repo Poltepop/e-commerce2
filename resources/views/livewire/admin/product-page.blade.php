@@ -26,7 +26,7 @@
         <tr wire:key='{{ $product->id }}'>
             <th>
                 <label>
-                    <input type="checkbox" class="checkbox" />
+                    <input type="checkbox" class="checkbox" x-bind:checked="selectAll"/>
                 </label>
             </th>
             <td>
