@@ -1,3 +1,4 @@
+<x-app-layout>
     {{-- Header --}}
     <x-slot name="header">
         {{-- breadcrumbs --}}
@@ -23,4 +24,3 @@
         </div>
     </div>
 </x-app-layout>
->>>>>>> 540893fcd016b0491ea58429f296d6763733a57e

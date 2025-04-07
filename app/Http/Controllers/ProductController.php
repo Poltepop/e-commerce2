@@ -8,7 +8,7 @@ class ProductController extends Controller
 {
     public function adminProduct()
     {
-        return view('admin.form-product-cerate');
+        return view('admin.product');
     }
 
     public function formCreate()
