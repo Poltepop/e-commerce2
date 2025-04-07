@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['OnlyAdmin', 'auth'])
         ->controller(ProductController::class)->group(function () {
     Route::get('/admin/products', 'adminProduct')->name('admin.products');
+    Route::get('/admin/products/create', 'formCreate')->name('form.product.create');
 });
 
 require __DIR__.'/auth.php';
