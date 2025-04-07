@@ -9,13 +9,13 @@
                         {{-- Product name --}}
                         <div class="w-full">
                             <x-input-label for="Name" :value="__('Name')"/>
-                            <x-text-input id="Name" 
-                                        class="block mt-1 w-full" 
-                                        type="text" 
-                                        name="name" 
+                            <x-text-input id="Name"
+                                        class="block mt-1 w-full"
+                                        type="text"
+                                        name="name"
                                         wire:model="productRequest.name"
-                                        :value="old('name')" 
-                                        autofocus 
+                                        :value="old('name')"
+                                        autofocus
                                         autocomplete="name" />
                             <x-input-error :messages="$errors->get('productRequest.name')" class="mt-2" />
                         </div>
@@ -23,14 +23,14 @@
                         {{-- Slug --}}
                         <div class="w-full">
                             <x-input-label for="Slug" :value="__('Slug')"/>
-                            <x-text-input id="Slug" 
-                                        class="block mt-1 w-full bg-gray-100" 
-                                        type="text" 
+                            <x-text-input id="Slug"
+                                        class="block mt-1 w-full bg-gray-100"
+                                        type="text"
                                         name="slug"
-                                        :value="old('slug')" 
-                                        required 
-                                        autofocus 
-                                        autocomplete="slug" 
+                                        :value="old('slug')"
+                                        required
+                                        autofocus
+                                        autocomplete="slug"
                                         disabled/>
                             <x-input-error :messages="$errors->get('slug')" class="mt-2" />
                         </div>
@@ -41,13 +41,13 @@
                         {{-- Description --}}
                         <div class="w-full">
                             <x-input-label for="Description" :value="__('Description')"/>
-                            <x-text-area  id="Description" 
-                                        class="block mt-1 w-full" 
-                                        type="text" 
-                                        name="description" 
+                            <x-text-area  id="Description"
+                                        class="block mt-1 w-full"
+                                        type="text"
+                                        name="description"
                                         wire:model="productRequest.description"
-                                        :value="old('description')"  
-                                        autofocus 
+                                        :value="old('description')"
+                                        autofocus
                                         autocomplete="description">
                                             {{-- Value --}}
                                         </x-text-area>
@@ -57,13 +57,13 @@
                         {{-- short description --}}
                         <div class="w-full">
                             <x-input-label for="Description_short" :value="__('Short Description')"/>
-                            <x-text-area  id="Description_short" 
-                                        class="block mt-1 w-full" 
-                                        type="text" 
-                                        name="short_description" 
+                            <x-text-area  id="Description_short"
+                                        class="block mt-1 w-full"
+                                        type="text"
+                                        name="short_description"
                                          wire:model="productRequest.short_description"
-                                        :value="old('short_description')"  
-                                        autofocus 
+                                        :value="old('short_description')"
+                                        autofocus
                                         autocomplete="short_description">
                                             {{-- Value --}}
                                         </x-text-area>
@@ -89,26 +89,26 @@
                     <div class="flex w-full gap-4 mb-4">
                         <div class="w-full">
                             <x-input-label for="Price" :value="__('Price')"/>
-                            <x-text-input  id="Price" 
-                            class="block mt-1 w-full" 
-                            type="text" 
-                            name="price" 
+                            <x-text-input  id="Price"
+                            class="block mt-1 w-full"
+                            type="text"
+                            name="price"
                             wire:model="productRequest.price"
-                            :value="old('price')"  
-                            autofocus 
+                            :value="old('price')"
+                            autofocus
                             autocomplete="price">
                         </x-text-input>
                         <x-input-error :messages="$errors->get('productRequest.price')" class="mt-2" />
                         </div>
-                        
+
                         <div class="w-full">
                             <x-input-label for="Weight" :value="__('Weight')"/>
-                            <x-text-input  id="Weight" 
-                            class="block mt-1 w-full" 
-                            type="text" 
+                            <x-text-input  id="Weight"
+                            class="block mt-1 w-full"
+                            type="text"
                             name="weight"
-                            wire:model="productRequest.weight" 
-                            :value="old('weight')"  
+                            wire:model="productRequest.weight"
+                            :value="old('weight')"
                             autofocus
                             autocomplete="weight">
                         </x-text-input>
@@ -119,12 +119,12 @@
                     <div class="flex w-full gap-4">
                         <div class="w-full">
                             <x-input-label for="Qty" :value="__('Quantity')"/>
-                            <x-text-input  id="Qty" 
-                            class="block mt-1 w-full" 
-                            type="text" 
-                            name="qty" 
-                            :value="old('qty')"  
-                            autofocus 
+                            <x-text-input  id="Qty"
+                            class="block mt-1 w-full"
+                            type="text"
+                            name="qty"
+                            :value="old('qty')"
+                            autofocus
                             autocomplete="qty">
                         </x-text-input>
                         <x-input-error :messages="$errors->get('short_description')" class="mt-2" />

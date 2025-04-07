@@ -1,5 +1,5 @@
 <x-app-layout>
-    
+
     <x-slot name="header">
         {{-- breadcrumbs --}}
         <div class="breadcrumbs text-sm">
@@ -8,7 +8,7 @@
                 <li>Products</li>
             </ul>
         </div>
-        
+
         {{-- Header --}}
         <div class="flex justify-between items-center">
             <x-layout.admin.header>

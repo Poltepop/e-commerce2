@@ -21,7 +21,6 @@
 
     {{-- <x-layout.admin.card> --}}
         {{-- table --}}
-        {{-- {{ json_encode($productSelected) }} --}}
        <x-table :headers="['Image','Name','Price','Weight','Short Description', 'Description', 'status', 'Aksi']">
         @foreach ($products as $product)
         <tr wire:key='{{ $product->id }}'>

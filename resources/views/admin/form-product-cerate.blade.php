@@ -9,7 +9,7 @@
                 <li>Form Create</li>
             </ul>
         </div>
-        
+
         <div class="flex justify-between items-center">
             <x-layout.admin.header>
                 Products

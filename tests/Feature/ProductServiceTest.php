@@ -49,4 +49,23 @@ class ProductServiceTest extends TestCase
         $result = Product::select('id')->where('slug', 'superstar-jumbo')->first();
         self::assertNull($result);
     }
+
+    public function testUpdateProduct(): void
+    {
+        $this->seed(ProductSeeder::class);
+        $productService = app(ProductService::class);
+        $product = new Product();
+        $product->name = 'Laptop Gaming';
+        $product->slug = 'Laptop-Gaming';
+        $product->price = '200.000';
+        $product->weight = '2';
+        $product->short_description = 'Laptop kenceng';
+        $product->description = 'Laptop gaming terbaru';
+        $product->status = 'dalivered';
+
+        $productService->update(2, $product);
+
+        $slugUpdated = Product::select('slug')->where('slug', 'Laptop-Gaming')->first();
+        self::assertSame($product->slug, $slugUpdated->slug);
+    }
 }
