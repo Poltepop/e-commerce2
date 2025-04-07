@@ -10,4 +10,9 @@ class ProductController extends Controller
     {
         return view('admin.form-product-cerate');
     }
+
+    public function formCreate()
+    {
+        return view('admin.form-product-cerate');
+    }
 }
