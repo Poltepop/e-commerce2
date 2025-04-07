@@ -9,18 +9,49 @@ use Livewire\Form;
 
 class ProductRequest extends Form
 {
-    public ?Product $product = null;
+    public string $name = '';
+    public string $price = '0';
+    public string $weight = '';
+    public ?string $short_description = null;
+    public ?string $description = null;
+    public string $status = '';
+
+
+    public function setProduct(): Product
+    {
+        $product = new Product();
+        $product->name = $this->name;
+        $product->price = $this->price;
+        $product->weight = $this->weight;
+        $product->short_description = $this->short_description;
+        $product->description = $this->description;
+        $product->status = $this->status;
+
+        return $product;
+    }
 
     public function store(ProductService $productService)
     {
         $this->validate([
-            'product.name' => ['required', 'string', 'min:5', 'max:100'],
-            'product.price' => ['required', 'min:0', 'decimal:2'],
-            'product.weight' => ['required', 'decimal:3'],
-            'product.short_description' => ['nullable', 'string', 'max:255'],
-            'product.description' => ['nullable', 'string'],
+            'name' => ['required', 'string', 'min:5', 'max:100'],
+            'price' => ['required', 'min:0', 'decimal:2'],
+            'weight' => ['required', 'decimal:3'],
+            'short_description' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
         ]);
 
-        $productService->create($this->product);
+        $product = $this->setProduct();
+
+        $productService->create($product);
+    }
+
+    public function update(int $productId, ProductService $productService): void
+    {
+
+    }
+
+    public function delete(int $productId, ProductService $productService): void
+    {
+        $productService->delete($productId);
     }
 }

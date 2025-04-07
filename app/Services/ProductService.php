@@ -6,5 +6,6 @@ use App\Models\Product;
 
 interface ProductService {
     public function create(Product $product): void;
+    public function update(int $productId, Product $product): void;
     public function delete(int $productId): void;
 }
