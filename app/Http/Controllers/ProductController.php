@@ -8,6 +8,6 @@ class ProductController extends Controller
 {
     public function adminProduct()
     {
-        return view('admin.product');
+        return view('admin.form-product-cerate');
     }
 }

@@ -8,7 +8,6 @@ use App\Models\Product;
 
 class ProductServiceImpl implements ProductService {
     public function create(Product $product): void {
-        dd($product);
         $product->status = empty(trim($product->status)) ? 'new' : $product->status;
         $product->save();
     }
@@ -16,9 +15,9 @@ class ProductServiceImpl implements ProductService {
     public function update(int $productId, Product $product): void
     {
         $productUpdate = Product::find($productId);
-        $productUpdate->update([
+        $productUpdate?->update([
             'name' => $product->name,
-            'slug' => $product->name,
+            'slug' => $product->slug,
             'price' => $product->price,
             'weight' => $product->weight,
             'short_description' => $product->short_description,
