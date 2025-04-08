@@ -10,7 +10,7 @@
                         <div class="w-full">
                             <x-input-label for="Name" :value="__('Name')"/>
                             <x-text-input id="Name"
-                                        class="block mt-1 w-full"
+                                        class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                                         type="text"
                                         name="name"
                                         wire:model.live.debounce.3500ms="productRequest.name"
@@ -42,7 +42,7 @@
                         <div class="w-full">
                             <x-input-label for="Description" :value="__('Description')"/>
                             <x-text-area  id="Description"
-                                        class="block mt-1 w-full"
+                                        class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                                         type="text"
                                         name="description"
                                         wire:model="productRequest.description"
@@ -58,7 +58,7 @@
                         <div class="w-full">
                             <x-input-label for="Description_short" :value="__('Short Description')"/>
                             <x-text-area  id="Description_short"
-                                        class="block mt-1 w-full"
+                                        class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                                         type="text"
                                         name="short_description"
                                         wire:model="productRequest.short_description"
@@ -86,16 +86,18 @@
                         class="mt-2" />
             </x-collapse>
 
+            {{-- variant --}}
             <x-collapse>
                     <x-slot:header>
                         Variant
                     </x-slot:header>
 
+                    {{-- Price --}}
                     <div class="flex w-full gap-4 mb-4">
                         <div class="w-full">
                             <x-input-label for="Price" :value="__('Price')"/>
                             <x-text-input  id="Price"
-                            class="block mt-1 w-full"
+                            class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                             type="text"
                             name="price"
                             wire:model="productRequest.price"
@@ -106,10 +108,11 @@
                         <x-input-error :messages="$errors->get('productRequest.price')" class="mt-2" />
                         </div>
 
+                        {{-- Weight --}}
                         <div class="w-full">
                             <x-input-label for="Weight" :value="__('Weight')"/>
                             <x-text-input  id="Weight"
-                            class="block mt-1 w-full"
+                            class="block mt-1 w-full  focus:border-orange-500 focus:ring-orange-500"
                             type="text"
                             name="weight"
                             wire:model="productRequest.weight"
@@ -121,11 +124,12 @@
                         </div>
                     </div>
 
+                    {{-- Quantity --}}
                     <div class="flex w-full gap-4">
                         <div class="w-full">
                             <x-input-label for="Qty" :value="__('Quantity')"/>
                             <x-text-input  id="Qty"
-                            class="block mt-1 w-full"
+                            class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                             type="text"
                             name="qty"
                             :value="old('qty')"
@@ -165,7 +169,7 @@
                             Availability<span class="text-red-500">*</span>
                         </x-input-label>
 
-                        <x-input-date class="w-full" id="Date"/>
+                        <x-input-date class="w-full focus:border-orange-500 focus:ring-orange-500" id="Date"/>
                     </div>
                 </x-collapse>
 
@@ -184,7 +188,7 @@
                                 Brand
                             </x-input-label>
                             
-                            <x-input-select id="Brand">
+                            <x-input-select id="Brand" class="focus:border-orange-500 focus:ring-orange-500">
                                 <option value="">Brand 1</option>
                                 <option value="">Brand 2</option>
                                 <option value="">Brand 3</option>
@@ -197,7 +201,7 @@
                             Category<span class="text-red-500">*</span>
                         </x-input-label>
                         
-                        <x-input-select id="Category">
+                        <x-input-select id="Category" class="focus:border-orange-500 focus:ring-orange-500">
                             <option value="">Category 1</option>
                             <option value="">Category 2</option>
                             <option value="">Category 3</option>
