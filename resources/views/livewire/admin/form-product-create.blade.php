@@ -13,7 +13,7 @@
                                         class="block mt-1 w-full"
                                         type="text"
                                         name="name"
-                                        wire:model="productRequest.name"
+                                        wire:model.live.debounce.3500ms="productRequest.name"
                                         :value="old('name')"
                                         autofocus
                                         autocomplete="name" />
@@ -27,7 +27,7 @@
                                         class="block mt-1 w-full bg-gray-100"
                                         type="text"
                                         name="slug"
-                                        :value="old('slug')"
+                                        wire:model='slug'
                                         required
                                         autofocus
                                         autocomplete="slug"
@@ -61,24 +61,29 @@
                                         class="block mt-1 w-full"
                                         type="text"
                                         name="short_description"
-                                         wire:model="productRequest.short_description"
+                                        wire:model="productRequest.short_description"
                                         :value="old('short_description')"
                                         autofocus
                                         autocomplete="short_description">
-                                            {{-- Value --}}
                                         </x-text-area>
                             <x-input-error :messages="$errors->get('productRequest.short_description')" class="mt-2" />
                         </div>
                     </div>
                 </x-layout.admin.card>
 
-                {{-- Image --}}
+            {{-- Image --}}
             <x-collapse class="w-full">
                     <x-slot:header>
                         Image
                     </x-slot:header>
 
-                    <x-input-file></x-input-file>
+                    <x-input-file
+                        multiple
+                        wire:model.live.debounce.4000ms='productRequest.images'
+                        :selectedImage="$selectedImage" />
+                    <x-input-error
+                        :messages="$errors->get('productRequest.images')"
+                        class="mt-2" />
             </x-collapse>
 
             <x-collapse>
