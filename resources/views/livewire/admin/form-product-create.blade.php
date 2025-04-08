@@ -140,7 +140,7 @@
             </div>
 
             {{-- right --}}
-            <div class="flex-auto w-full lg:max-w-xs">
+            <div class="flex-auto flex w-full lg:max-w-xs gap-y-2 lg:gap-7 flex-col">
                 {{-- Row 1 Right --}}
                 <x-collapse class="w-full">
                     {{-- header card --}}
@@ -150,8 +150,10 @@
 
                     {{-- visible menu toggle --}}
                     <div class="flex">
-                        <x-toggle color="orange"/>                     
-                        <h5 class="ml-2 font-bold">Visible</h5>
+                        <x-toggle color="orange" id="Visible"/>                     
+                        <x-input-label class="ml-2 font-bold" for="Visible">
+                            Visible
+                        </x-input-label>
                     </div>
                     <div class="mt-1">
                         <p class=" text-gray-500 text-sm">This product will be hidden from all sales channels.</p>
@@ -159,9 +161,50 @@
 
                     {{-- date menu --}}
                     <div class="flex flex-col mt-4 gap-1">
-                        <h5 class="ml-2 font-bold">Availability<span class="text-red-500">*</span></h5>
-                        <x-input-date class="w-full"/>
+                        <x-input-label class="ml-1" for="Date">
+                            Availability<span class="text-red-500">*</span>
+                        </x-input-label>
+
+                        <x-input-date class="w-full" id="Date"/>
                     </div>
+                </x-collapse>
+
+                {{-- Row 2 Right --}}
+                <x-collapse class="w-full">
+                    {{-- header card --}}
+                    <x-slot:header>
+                        Associations 
+                    </x-slot:header>
+
+                    <div class="flex flex-col gap-4">
+                        
+                        {{-- brand  --}}
+                        <div class="flex flex-col gap-1">
+                            <x-input-label class="ml-1" for="Brand">
+                                Brand
+                            </x-input-label>
+                            
+                            <x-input-select id="Brand">
+                                <option value="">Brand 1</option>
+                                <option value="">Brand 2</option>
+                                <option value="">Brand 3</option>
+                            </x-input-select>
+                        </div>
+                        
+                    {{-- Category --}}
+                    <div class="flex flex-col gap-1">
+                        <x-input-label class="ml-1" for="Category">
+                            Category<span class="text-red-500">*</span>
+                        </x-input-label>
+                        
+                        <x-input-select id="Category">
+                            <option value="">Category 1</option>
+                            <option value="">Category 2</option>
+                            <option value="">Category 3</option>
+                        </x-input-select>
+                    </div>
+                </div>
+
                 </x-collapse>
             </div>
         </div>
