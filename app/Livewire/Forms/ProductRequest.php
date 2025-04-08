@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\WithFileUploads;
 
 class ProductRequest extends Form
 {
@@ -15,6 +16,8 @@ class ProductRequest extends Form
     public ?string $short_description = null;
     public ?string $description = null;
     public string $status = '';
+    #[Validate(rule: 'max:3')]
+    public $images;
 
 
     public function setProduct(): Product
@@ -33,13 +36,17 @@ class ProductRequest extends Form
     public function store(ProductService $productService)
     {
         $this->validate([
-            'name' => ['required', 'string', 'min:5', 'max:100'],
-            'price' => ['required', 'min:0', 'decimal:2'],
-            'weight' => ['required', 'decimal:3'],
+            'name' => ['nullable', 'string', 'min:5', 'max:100'],
+            'price' => ['nullable', 'min:0'],
+            'weight' => ['nullable',],
             'short_description' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'images' => ['nullable', 'max:3'],
+            'images.*' => ['nullable', 'image'],
         ]);
 
+        dd($this->images);
+        
         $product = $this->setProduct();
 
         $productService->create($product);
@@ -53,5 +60,12 @@ class ProductRequest extends Form
     public function delete(int $productId, ProductService $productService): void
     {
         $productService->delete($productId);
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'images.max' => 'Cant Upload More Than 3 Images',
+        ];
     }
 }

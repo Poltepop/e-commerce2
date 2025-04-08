@@ -6,39 +6,33 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 
 trait GenerateSlug {
-    private ?int $count = null;
-    private ?string $slug = null;
+    private ?string $result = null;
     public function generateProductSlug(string $word): static
     {
-        $slug = Str::slug(strtolower($word)); // sample word -> sample-word
-        $this->count = Product::select('slug')
-                                ->where('slug',  'LIKE', '%'. $slug . '%')
-                                ->count('slug');
+        if (!empty(trim($word))) {
+            $slug = Str::slug(strtolower($word)); // sample word -> sample-word
+            $count = Product::select('slug')
+                                    ->where('slug',  'LIKE', '%'. $slug . '%')
+                                    ->count('slug');
 
-        if ($this->count == 0 || null) {
-            $this->setSlug($slug);
-        } else {
-            $uniqSlug = $slug . '-' . ($this->count + 1 - 1);
-            $this->setSlug($uniqSlug);
+            if ($count == 0 || null) {
+                $this->setSlug($slug);
+            } else {
+                $uniqSlug = $slug . '-' . ($count + 1 - 1);
+                $this->setSlug($uniqSlug);
+            }
         }
-
-        $this->resetCountSlug();
 
         return $this;
     }
 
     public function getSlug(): ?string
     {
-        return $this->slug;
+        return $this->result;
     }
 
-    public function setSlug(string $slug): void
+    private function setSlug(string $slug): void
     {
-        $this->slug = $slug;
-    }
-
-    public function resetCountSlug(): void
-    {
-        $this->count = null;
+        $this->result = $slug;
     }
 }
