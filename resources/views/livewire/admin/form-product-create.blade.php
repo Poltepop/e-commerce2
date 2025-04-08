@@ -141,9 +141,28 @@
 
             {{-- right --}}
             <div class="flex-auto w-full lg:max-w-xs">
-                <x-layout.admin.card class="w-full">
-                    {{-- Content right --}}
-                </x-layout.admin.card>
+                {{-- Row 1 Right --}}
+                <x-collapse class="w-full">
+                    {{-- header card --}}
+                    <x-slot:header>
+                        Status
+                    </x-slot:header>
+
+                    {{-- visible menu toggle --}}
+                    <div class="flex">
+                        <x-toggle color="orange"/>                     
+                        <h5 class="ml-2 font-bold">Visible</h5>
+                    </div>
+                    <div class="mt-1">
+                        <p class=" text-gray-500 text-sm">This product will be hidden from all sales channels.</p>
+                    </div>
+
+                    {{-- date menu --}}
+                    <div class="flex flex-col mt-4 gap-1">
+                        <h5 class="ml-2 font-bold">Availability<span class="text-red-500">*</span></h5>
+                        <x-input-date class="w-full"/>
+                    </div>
+                </x-collapse>
             </div>
         </div>
 
