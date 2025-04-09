@@ -203,6 +203,7 @@
 
                         <x-search-select-option
                             wire:model.live.debounce.200ms='inputCategory'
+                            placeholder="select an option"
                             :data="$categories"
                             nodata="no category found"
                             width="w-full"/>
