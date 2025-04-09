@@ -5,7 +5,7 @@
             <ul>
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="{{ route('admin.products') }}">Products</a></li>
-                <li>Form Create</li>
+                <li>Form Create</li>    
             </ul>
         </div>
 
