@@ -1,4 +1,21 @@
 <div>
+    <x-slot name="header">
+        {{-- breadcrumbs --}}
+        <div class="breadcrumbs text-sm">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="{{ route('admin.products') }}">Products</a></li>
+                <li>Form Update</li>
+            </ul>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <x-layout.admin.header>
+                Products Update
+            </x-layout.admin.header>
+        </div>
+    </x-slot>
+
     <form action="" method="post">
         <div class="flex gap-2 flex-col lg:flex-row lg:gap-7">
             {{-- left --}}

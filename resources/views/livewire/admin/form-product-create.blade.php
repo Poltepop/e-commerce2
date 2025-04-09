@@ -1,5 +1,21 @@
 <div>
-    {{ json_encode($selectedCategory) }}
+    <x-slot name="header">
+        {{-- breadcrumbs --}}
+        <div class="breadcrumbs text-sm">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="{{ route('admin.products') }}">Products</a></li>
+                <li>Form Create</li>
+            </ul>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <x-layout.admin.header>
+                Products Create
+            </x-layout.admin.header>
+        </div>
+    </x-slot>
+
     <form action="" wire:submit="create" method="post">
         <div class="flex gap-2 flex-col lg:flex-row lg:gap-7">
             {{-- left --}}

@@ -5,8 +5,8 @@
         </x-layout.admin.header>
     </x-slot>
 
-    <div class="py-5">
-        <div class="max-w-7xl mx-4 sm:px-6 md:mx-auto  lg:px-8">
+    <div class="">
+        <div class="max-w-7xl md:mx-auto ">
             <x-layout.admin.card class=" text-black flex justify-between items-center">
                 {{-- Avatar --}}
                 <div class="flex">
