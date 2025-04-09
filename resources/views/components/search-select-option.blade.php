@@ -43,7 +43,7 @@ format $data must be array like this :
                     x-on:click="isOpen = true"
                     {{ $attributes->merge(['class' => 'border-0 focus:border-0 py-1 focus:ring-0 rounded-xl w-full cursor-pointer text-sm']) }}>
 
-                <button type="button" class="" x-on:click="isOpen = !isOpen">
+                <button type="button" x-on:click="isOpen = !isOpen">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 transition duration-300 " :class="isOpen ? 'rotate-180' : 'size-4' ">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                     </svg>
