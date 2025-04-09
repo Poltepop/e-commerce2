@@ -24,8 +24,8 @@ format $data must be array like this :
     <div class="w-full flex justify-center items-center pr-2 border border-gray-300 rounded-xl"
         x-on:click="classOnFocus = 'border-orange-400 border-2';"
         :class="classOnFocus">
-        <div class="py-2 w-full">
-            <div class="flex flex-wrap w-full pl-1 pb-2 gap-1" x-show="itemSelected.length > 0">
+        <div class="py-1 w-full">
+            <div class="flex flex-wrap w-full pl-1 gap-1" x-show="itemSelected.length > 0">
                 <template x-for="(item, index) in itemSelected" :key="item.id">
                     <div class="flex bg-orange-100 text-xs px-2 py-0 border-[1px] bg-opacity-45 text-orange-500 border-orange-300 rounded-md cursor-pointer gap-x-1 items-center justify-between">
                         <div
@@ -43,16 +43,17 @@ format $data must be array like this :
                     @disabled($disabled)
                     x-on:click="isOpen = true"
                     {{ $attributes->merge(['class' => 'border-0 focus:border-0 py-1 focus:ring-0 rounded-xl w-full cursor-pointer text-sm']) }}>
+
+                <button type="button" class="" x-on:click="isOpen = !isOpen">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 transition duration-300 " :class="isOpen ? 'rotate-180' : 'size-4' ">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                    </svg>
+                </button>
             </div>
         </div>
 
-        <button type="button" class="" x-on:click="isOpen = !isOpen">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 transition duration-300 " :class="isOpen ? 'rotate-180' : 'size-4' ">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-            </svg>
-        </button>
     </div>
-    <x-layout.admin.card class="px-1 py-1 gap-1 w-full flex-col rounded-xs border-gray-200 absolute max-h-52 overflow-y-auto mt-1" x-show="isOpen">
+    <x-layout.admin.card class="px-1 py-1 gap-1 w-full flex-col rounded-xs border-gray-200 z-50 absolute max-h-52 overflow-y-auto mt-1" x-show="isOpen">
         @forelse ($data as $key => $item)
         <span
             x-data="{
