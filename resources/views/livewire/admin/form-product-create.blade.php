@@ -208,7 +208,6 @@
                             width="w-full"/>
                     </div>
                 </div>
-
                 </x-collapse>
             </div>
         </div>

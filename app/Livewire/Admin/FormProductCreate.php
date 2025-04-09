@@ -7,7 +7,9 @@ use App\Utils\GenerateSlug;
 use Livewire\Component;
 use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
+use App\Models\Category;
 use App\Utils\InputSelectedCategory;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 
 class FormProductCreate extends Component

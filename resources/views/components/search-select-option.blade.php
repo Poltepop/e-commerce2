@@ -84,7 +84,6 @@ format $data must be array like this :
         @empty
 
             <span class="block w-full rounded-md text-[.8em] px-2">{{ $nodata }}</span>
-
         @endforelse
 
     </div>
