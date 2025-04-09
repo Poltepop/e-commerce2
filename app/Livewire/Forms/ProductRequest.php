@@ -36,7 +36,7 @@ class ProductRequest extends Form
     public function store(ProductService $productService)
     {
         $this->validate([
-            'name' => ['nullable', 'string', 'min:5', 'max:100'],
+            'name' => ['required', 'string', 'min:5', 'max:100'],
             'price' => ['nullable', 'min:0'],
             'weight' => ['nullable',],
             'short_description' => ['nullable', 'string', 'max:255'],
@@ -45,8 +45,7 @@ class ProductRequest extends Form
             'images.*' => ['nullable', 'image'],
         ]);
 
-        dd($this->images);
-        
+
         $product = $this->setProduct();
 
         $productService->create($product);
