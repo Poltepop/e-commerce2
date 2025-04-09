@@ -50,7 +50,7 @@
             <td>{{ $product->description }}</td>
             <td>{{ $product->status }}</td>
             <th>
-                <button class="btn btn-ghost btn-xs">details</button>
+                <a href="{{ route('form.product.update', $product->slug) }}" class="btn btn-ghost btn-xs">update</a>
             </th>
         </tr>
         @endforeach

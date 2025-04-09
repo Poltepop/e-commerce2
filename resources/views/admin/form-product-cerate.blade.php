@@ -12,7 +12,7 @@
 
         <div class="flex justify-between items-center">
             <x-layout.admin.header>
-                Products
+                Products Create
             </x-layout.admin.header>
         </div>
     </x-slot>

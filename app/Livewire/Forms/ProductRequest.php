@@ -12,6 +12,7 @@ class ProductRequest extends Form
 {
     #[Validate()]
     public string $name = '';
+    public string $slug = '';
     public string $price = '0';
     public string $weight = '';
     public ?string $short_description = null;
@@ -26,6 +27,7 @@ class ProductRequest extends Form
     {
         $product = new Product();
         $product->name = $this->name;
+        $product->slug = $this->slug;
         $product->price = $this->price;
         $product->weight = $this->weight;
         $product->short_description = $this->short_description;
@@ -53,9 +55,19 @@ class ProductRequest extends Form
         $productService->create($product, $this->category);
     }
 
-    public function update(int $productId, ProductService $productService): void
+    public function update(ProductService $productService): void
     {
+        $this->validate([
+            'name' => ['required', 'string', 'min:5', 'max:100'],
+            'price' => ['nullable', 'min:0'],
+            'weight' => ['nullable',],
+            'short_description' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'images' => ['nullable', 'max:3'],
+            'images.*' => ['nullable', 'image'],
+        ]);
 
+        $product = $this->setProduct();
     }
 
     public function delete(int $productId, ProductService $productService): void

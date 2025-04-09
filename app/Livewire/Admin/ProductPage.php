@@ -25,7 +25,7 @@ class ProductPage extends Component
 
     public function readProducts()
     {
-        $product = Product::select(['id', 'name', 'price', 'weight', 'short_description', 'description', 'status', 'created_at'])
+        $product = Product::select(['id','slug', 'name', 'price', 'weight', 'short_description', 'description', 'status', 'created_at'])
                             ->get();
         $result = empty(trim($this->searchUser)) ? $product : $this->getSearchResult()->get();
         return $result;
