@@ -16,8 +16,10 @@ class ProductController extends Controller
         return view('admin.form-product-cerate');
     }
 
-    public function formUpdate()
+    public function formUpdate($slug)
     {
-        return view('admin.form-product-update');
+        return view('admin.form-product-update', [
+            'slug' => $slug
+        ]);
     }
 }
