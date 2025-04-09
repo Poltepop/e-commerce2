@@ -4,10 +4,9 @@
 
 format $data must be array like this :
 [
-    'phone',
-    'laptop',
-    'food',
-    'drink'
+    ['id' => 1, 'name'=> 'joko1'] note: every item index 0 must be an id and index 1 its content
+    ['id' => 2, 'name'=> 'joko2']
+    ['id' => 3, 'name'=> 'joko3']
 ]
 
 --}}
@@ -54,10 +53,13 @@ format $data must be array like this :
 
     </div>
     <x-layout.admin.card class="px-1 py-1 gap-1 w-full flex-col rounded-xs border-gray-200 z-50 absolute max-h-52 overflow-y-auto mt-1" x-show="isOpen">
-        @forelse ($data as $key => $item)
+        @forelse ($data as $item)
+        @php
+            $content = array_values($item);
+        @endphp
         <span
             x-data="{
-                idItem: {{$key}},
+                idItem: {{$content[0]}},
                 isSelected() {
                     if(itemSelected) {
                         return itemSelected.some(i => i.id === this.idItem);
@@ -68,7 +70,7 @@ format $data must be array like this :
                 },
                 toggleSelected() {
                     if(this.isSelected()) return; // prevent duplicate
-                    itemSelected.push({ id: this.idItem, content: '{{$item}}' });
+                    itemSelected.push({ id: this.idItem, content: '{{$content[1]}}' });
                 }
             }"
             x-show="!isSelected()"
@@ -78,10 +80,10 @@ format $data must be array like this :
                 classOnFocus = 'border-orange-200';
                 toggleSelected();
             "
-            x-on:mouseover="itemLastHover = {{$key}}"
-            wire:key="{{$key}}"
+            x-on:mouseover="itemLastHover = {{$content[0]}}"
+            wire:key="{{$item['id']}}"
             >
-            {{ $item }}
+            {{ $content[1] }}
         </span>
 
         @empty

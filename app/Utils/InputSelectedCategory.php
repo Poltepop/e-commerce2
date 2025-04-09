@@ -13,13 +13,13 @@ trait InputSelectedCategory {
     public function updatedInputCategory($value): void
     {
         if(!empty(trim($this->inputCategory))) {
-            $result = Category::select('name')
+            $result = Category::select(['id', 'name'])
                     ->where('name', 'LIKE', '%'. trim($value) .'%')
                     ->get()
-                    ->pluck('name')
                     ->toArray();
 
             $this->categories = $result;
+            // dd($result);
         }
     }
 }
