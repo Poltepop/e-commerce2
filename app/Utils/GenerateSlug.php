@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
@@ -12,6 +13,25 @@ trait GenerateSlug {
         if (!empty(trim($word))) {
             $slug = Str::slug(strtolower($word)); // sample word -> sample-word
             $count = Product::select('slug')
+                                    ->where('slug',  'LIKE', '%'. $slug . '%')
+                                    ->count('slug');
+
+            if ($count == 0 || null) {
+                $this->setSlug($slug);
+            } else {
+                $uniqSlug = $slug . '-' . ($count + 1 - 1);
+                $this->setSlug($uniqSlug);
+            }
+        }
+
+        return $this;
+    }
+
+    public function generateCategorySlug(string $word): static
+    {
+        if (!empty(trim($word))) {
+            $slug = Str::slug(strtolower($word)); // sample word -> sample-word
+            $count = Category::select('slug')
                                     ->where('slug',  'LIKE', '%'. $slug . '%')
                                     ->count('slug');
 

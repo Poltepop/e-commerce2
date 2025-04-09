@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\Product;
 use App\Utils\GenerateSlug;
+use Exception;
 use Livewire\Component;
 use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
@@ -48,8 +49,12 @@ class FormProductCreate extends Component
     }
     public function create(ProductService $service): void
     {
-        dd($this->selectedCategory);
-        $this->productRequest->store($service);
+        try {
+            $this->productRequest->category = $this->selectedCategory;
+            $this->productRequest->store($service);
+        } catch (Exception $exception) {
+            $this->addError('name', $exception->getMessage());
+        }
     }
 
     public function delete(int $productId, ProductService $service): void

@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 
 class ProductRequest extends Form
 {
+    #[Validate()]
     public string $name = '';
     public string $price = '0';
     public string $weight = '';
@@ -18,6 +19,7 @@ class ProductRequest extends Form
     public string $status = '';
     #[Validate(rule: 'max:3')]
     public $images;
+    public array $category = [];
 
 
     public function setProduct(): Product
@@ -36,19 +38,19 @@ class ProductRequest extends Form
     public function store(ProductService $productService)
     {
         $this->validate([
-            'name' => ['required', 'string', 'min:5', 'max:100'],
+            'name' => ['required', 'string', 'min:5', 'max:100', 'unique:products,name'],
             'price' => ['nullable', 'min:0'],
             'weight' => ['nullable',],
             'short_description' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'images' => ['nullable', 'max:3'],
             'images.*' => ['nullable', 'image'],
+            'category' => ['required', 'min:1', 'max:5'],
         ]);
-
 
         $product = $this->setProduct();
 
-        $productService->create($product);
+        $productService->create($product, $this->category);
     }
 
     public function update(int $productId, ProductService $productService): void

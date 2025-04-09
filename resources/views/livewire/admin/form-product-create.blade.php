@@ -13,11 +13,11 @@
                                         class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                                         type="text"
                                         name="name"
-                                        wire:model.live.debounce.3500ms="productRequest.name"
+                                        wire:model.live.debounce.1000ms="productRequest.name"
                                         :value="old('name')"
                                         autofocus
                                         autocomplete="name" />
-                            <x-input-error :messages="$errors->get('productRequest.name')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
                         {{-- Slug --}}
@@ -66,7 +66,7 @@
                                         autofocus
                                         autocomplete="short_description">
                                         </x-text-area>
-                            <x-input-error :messages="$errors->get('productRequest.short_description')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('short_description')" class="mt-2" />
                         </div>
                     </div>
                 </x-layout.admin.card>
@@ -82,7 +82,7 @@
                         wire:model.live.debounce.4000ms='productRequest.images'
                         :selectedImage="$selectedImage" />
                     <x-input-error
-                        :messages="$errors->get('productRequest.images')"
+                        :messages="$errors->get('images')"
                         class="mt-2" />
             </x-collapse>
 
@@ -105,7 +105,7 @@
                             autofocus
                             autocomplete="price">
                         </x-text-input>
-                        <x-input-error :messages="$errors->get('productRequest.price')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
                         </div>
 
                         {{-- Weight --}}
@@ -120,7 +120,7 @@
                             autofocus
                             autocomplete="weight">
                         </x-text-input>
-                        <x-input-error :messages="$errors->get('productRequest.weight')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('weight')" class="mt-2" />
                         </div>
                     </div>
 
@@ -196,6 +196,7 @@
 
                     {{-- Category --}}
                     <div class="flex flex-col gap-1">
+                        <x-input-error :messages="$errors->get('category')" class="mt-2" />
                         <x-input-label class="ml-1" for="Category">
                             Category<span class="text-red-500">*</span>
                         </x-input-label>

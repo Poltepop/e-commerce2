@@ -4,15 +4,34 @@ namespace App\Services\ServiceImpl;
 
 use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Utils\GenerateSlug;
+use Exception;
 
 class ProductServiceImpl implements ProductService {
     use GenerateSlug;
-    public function create(Product $product): void {
+    public function create(Product $product, array $categories): void {
         $product->status = empty(trim($product->status)) ? 'new' : $product->status;
         $product->slug = $this->generateProductSlug($product->name)->getSlug();
-        $product->save();
+
+        $newProduct = Product::create([
+            'name' => $product->name,
+            'price' => $product->price,
+            'weight' => $product->weight,
+            'short_description' => $product->short_description,
+            'description' => $product->description,
+            'slug' => $product->slug,
+        ]);
+
+        $filteredCategory = collect($categories)->pluck('content')->toArray();
+
+        $categoryIds = Category::select('id')->whereIn('name', $filteredCategory)
+                                ->get()
+                                ->pluck('id')
+                                ->toArray();
+        // [1, 2,3 4,]
+        $newProduct->categories()->syncWithoutDetaching($categoryIds);
     }
 
     public function update(int $productId, Product $product): void
@@ -38,5 +57,10 @@ class ProductServiceImpl implements ProductService {
         if ($isExist !== null) {
             $isExist->delete();
         }
+    }
+
+    public function createPoductCategory(array $array): void
+    {
+
     }
 }
