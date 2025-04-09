@@ -20,9 +20,6 @@
     </x-slot>
 
     {{-- Content --}}
-    <div class="py-5">
-        <div class="max-w-7xl mx-4 sm:px-6 md:mx-auto lg:px-8">
-            <livewire:admin.product-page/>
-        </div>
-    </div>
+    <livewire:admin.product-page/>
+  
 </x-app-layout>

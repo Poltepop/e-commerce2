@@ -14,13 +14,10 @@
             <x-layout.admin.header>
                 Products Create
             </x-layout.admin.header>
+
         </div>
     </x-slot>
 
     {{-- Content --}}
-    <div class="py-5">
-        <div class="max-w-7xl mx-4 sm:px-6 md:mx-auto lg:px-8">
-            <livewire:admin.form-product-create/>
-        </div>
-    </div>
+    <livewire:admin.form-product-create/>
 </x-app-layout>

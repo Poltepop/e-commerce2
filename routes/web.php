@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\OnlyAdminMiddleware;
+use App\Livewire\Admin\FormProductCreate;
+use App\Livewire\Admin\FormProductUpdate;
+use App\Livewire\Admin\ProductPage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,11 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['OnlyAdmin', 'auth'])
-        ->controller(ProductController::class)->group(function () {
-    Route::get('/admin/products', 'adminProduct')->name('admin.products');
-    Route::get('/admin/products/create', 'formCreate')->name('form.product.create');
-    Route::get('/admin/{slug}/update/', 'formUpdate')->name('form.product.update');
+Route::middleware(['OnlyAdmin', 'auth'])->group(function () {
+    Route::get('/admin/products', ProductPage::class)->name('admin.products');
+    Route::get('/admin/products/create', FormProductCreate::class)->name('form.product.create');
+    Route::get('/admin/{slug}/update/', FormProductUpdate::class)->name('form.product.update');
 });
 
 require __DIR__.'/auth.php';
