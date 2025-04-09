@@ -205,7 +205,7 @@
                             wire:model.live.debounce.200ms='inputCategory'
                             id="Category"
                             :data="$categories"
-                            placeholder="no options match your search"
+                            placeholder="Select an Category"
                             nodata="No option match your search"
                             width="w-full"/>
                     </div>
