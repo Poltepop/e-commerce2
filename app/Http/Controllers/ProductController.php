@@ -15,4 +15,9 @@ class ProductController extends Controller
     {
         return view('admin.form-product-cerate');
     }
+
+    public function formUpdate()
+    {
+        return view('admin.form-product-update');
+    }
 }
