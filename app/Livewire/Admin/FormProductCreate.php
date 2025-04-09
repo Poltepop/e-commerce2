@@ -7,14 +7,16 @@ use App\Utils\GenerateSlug;
 use Livewire\Component;
 use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
+use App\Utils\InputSelectedCategory;
 use Livewire\WithFileUploads;
 
 class FormProductCreate extends Component
 {
-    use GenerateSlug, WithFileUploads;
+    use GenerateSlug, WithFileUploads, InputSelectedCategory;
     public ProductRequest $productRequest;
     public ?string $slug = null;
     public array $selectedImage = [];
+
     public function mount(): void
     {
         $this->productRequest->status = 'new';
@@ -37,6 +39,7 @@ class FormProductCreate extends Component
     }
     public function create(ProductService $service): void
     {
+        dd($this->selectedCategory);
         $this->productRequest->store($service);
     }
 
