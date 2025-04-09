@@ -9,16 +9,16 @@ use Livewire\Component;
 use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Category;
+use App\Utils\HandleFileUpload;
 use App\Utils\InputSelectedCategory;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 
 class FormProductCreate extends Component
 {
-    use GenerateSlug, WithFileUploads, InputSelectedCategory;
+    use GenerateSlug, WithFileUploads, InputSelectedCategory, HandleFileUpload;
     public ProductRequest $productRequest;
     public ?string $slug = null;
-    public array $selectedImage = [];
 
     public function mount(): void
     {
@@ -28,24 +28,6 @@ class FormProductCreate extends Component
     public function updatedProductRequestName($value): void
     {
         $this->slug = $this->generateProductSlug($value)->getSlug();
-    }
-
-    public function updatedProductRequestImages($value): void
-    {
-        count($value) < 4 ? $this->selectedImage = $value : $this->selectedImage = [];
-    }
-
-    public function deleteImageSelected($index){
-        $data = $this->selectedImage;
-        unset($data[$index]);
-        $data = array_values($data);
-        $this->selectedImage = $data;
-    }
-
-    public function resetImages(): void
-    {
-        $this->productRequest->images = [];
-        $this->selectedImage = [];
     }
     public function create(ProductService $service): void
     {
