@@ -9,7 +9,7 @@ format $data must be array like this :
     'food',
     'drink'
 ]
-    
+
 --}}
 
 <div class="{{ $width }} relative"
@@ -25,7 +25,7 @@ format $data must be array like this :
         x-on:click="classOnFocus = 'border-orange-400'; isOpen = true;"
         :class="classOnFocus">
         <div class="py-2 w-full">
-            <div class="flex flex-wrap w-full gap-2">
+            <div class="flex flex-wrap w-full pb-2 gap-2" x-show="itemSelected.length > 0">
                 <template x-for="(item, index) in itemSelected" :key="item.id">
                     <div class="flex bg-orange-200 text-sm px-2 py-0 border-[1px] bg-opacity-45 text-orange-400 border-orange-300 rounded-md cursor-pointer gap-x-1 items-center justify-between">
                         <div
@@ -41,7 +41,7 @@ format $data must be array like this :
             <div class="w-full flex items-center">
                 <input
                     @disabled($disabled)
-                    {{ $attributes->merge(['class' => 'border-0 focus:border-0 focus:ring-0 rounded-xl shadow-sm w-full cursor-pointer']) }}>
+                    {{ $attributes->merge(['class' => 'border-0 focus:border-0 py-0 focus:ring-0 rounded-xl shadow-sm w-full cursor-pointer']) }}>
             </div>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">

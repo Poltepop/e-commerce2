@@ -154,7 +154,7 @@
 
                     {{-- visible menu toggle --}}
                     <div class="flex">
-                        <x-toggle color="orange" id="Visible"/>                     
+                        <x-toggle color="orange" id="Visible"/>
                         <x-input-label class="ml-2 font-bold" for="Visible">
                             Visible
                         </x-input-label>
@@ -177,35 +177,35 @@
                 <x-collapse class="w-full">
                     {{-- header card --}}
                     <x-slot:header>
-                        Associations 
+                        Associations
                     </x-slot:header>
 
                     <div class="flex flex-col gap-4">
-                        
+
                         {{-- brand  --}}
                         <div class="flex flex-col gap-1">
                             <x-input-label class="ml-1" for="Brand">
                                 Brand
                             </x-input-label>
-                            
+
                             <x-input-select id="Brand" class="focus:border-orange-500 focus:ring-orange-500">
                                 <option value="">Brand 1</option>
                                 <option value="">Brand 2</option>
                                 <option value="">Brand 3</option>
                             </x-input-select>
                         </div>
-                        
+
                     {{-- Category --}}
                     <div class="flex flex-col gap-1">
                         <x-input-label class="ml-1" for="Category">
                             Category<span class="text-red-500">*</span>
                         </x-input-label>
-                        
-                        <x-input-select id="Category" class="focus:border-orange-500 focus:ring-orange-500">
-                            <option value="">Category 1</option>
-                            <option value="">Category 2</option>
-                            <option value="">Category 3</option>
-                        </x-input-select>
+
+                        <x-search-select-option
+                            wire:model.live.debounce.200ms='inputCategory'
+                            :data="$categories"
+                            nodata="no category found"
+                            width="w-full"/>
                     </div>
                 </div>
 
