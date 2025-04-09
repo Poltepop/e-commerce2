@@ -15,7 +15,7 @@ trait InputSelectedCategory {
         if(!empty(trim($this->inputCategory))) {
             $result = Category::select('name')
                     ->where('name', 'LIKE', '%'. trim($value) .'%')
-                    ->get('name')
+                    ->get()
                     ->pluck('name')
                     ->toArray();
 
