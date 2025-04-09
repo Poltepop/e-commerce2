@@ -188,11 +188,10 @@
                                 Brand
                             </x-input-label>
 
-                            <x-input-select id="Brand" class="focus:border-orange-500 focus:ring-orange-500">
-                                <option value="">Brand 1</option>
-                                <option value="">Brand 2</option>
-                                <option value="">Brand 3</option>
-                            </x-input-select>
+                            <x-search-select-option
+                                id="Brand"
+                                width="w-full"
+                                placeholder="Select an brand"/>
                         </div>
 
                     {{-- Category --}}
