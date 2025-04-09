@@ -1,4 +1,5 @@
 <div>
+    {{ json_encode($selectedCategory) }}
     <form action="" wire:submit="create" method="post">
         <div class="flex gap-2 flex-col lg:flex-row lg:gap-7">
             {{-- left --}}

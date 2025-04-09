@@ -29,7 +29,7 @@ format $data must be array like this :
                     <div class="flex bg-orange-100 text-xs px-2 py-0 border-[1px] bg-opacity-45 text-orange-500 border-orange-300 rounded-md cursor-pointer gap-x-1 items-center justify-between">
                         <div
                             class="text-sm"
-                            x-text="item.content">
+                            x-text="item.name">
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-gray-500" x-on:click="itemSelected.splice(index, 1);">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -70,7 +70,7 @@ format $data must be array like this :
                 },
                 toggleSelected() {
                     if(this.isSelected()) return; // prevent duplicate
-                    itemSelected.push({ id: this.idItem, content: '{{$content[1]}}' });
+                    itemSelected.push({ id: this.idItem, name: '{{$content[1]}}' });
                 }
             }"
             x-show="!isSelected()"
