@@ -22,6 +22,7 @@ class ProductServiceImpl implements ProductService {
             'short_description' => $product->short_description,
             'description' => $product->description,
             'slug' => $product->slug,
+            'status' => $product->status,
         ]);
 
         $filteredCategory = collect($categories)->pluck('content')->toArray();
@@ -30,7 +31,6 @@ class ProductServiceImpl implements ProductService {
                                 ->get()
                                 ->pluck('id')
                                 ->toArray();
-        // [1, 2,3 4,]
         $newProduct->categories()->syncWithoutDetaching($categoryIds);
     }
 
