@@ -21,5 +21,6 @@ export default {
     plugins: [
         forms,
         require('daisyui'),
+        require('tailwindcss-motion'),
     ],
 };
