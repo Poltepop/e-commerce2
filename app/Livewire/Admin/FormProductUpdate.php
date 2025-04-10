@@ -15,8 +15,6 @@ class FormProductUpdate extends Component
 {
     use WithFileUploads, InputSelectedCategory, HandleFileUpload;
     public ProductRequest $productRequest;
-    public array $selectedImage = [];
-    #[Title('form-products-update')]
 
     public function mount($slug): void
     {
@@ -35,10 +33,12 @@ class FormProductUpdate extends Component
         $this->productRequest->status = $products->status;
     }
 
-    public function update(ProductService $productService){
+    public function update(ProductService $productService): void
+    {
         $this->productRequest->update( $productService);
     }
 
+    #[Title('form-products-update')]
     public function render()
     {
         return view('livewire.admin.form-product-update');

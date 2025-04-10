@@ -16,8 +16,6 @@ class ProductPage extends Component
     public array $allProductId = [];
     public bool $isSelectAll = false;
 
-    #[Title('products')]
-
     public function mount(): void
     {
         $productid = Product::select(['id'])->get();
@@ -57,11 +55,13 @@ class ProductPage extends Component
                 $this->productSelected = array_values($this->productSelected);
             } else {
                 // add id
-                $this->productSelected[] = $id; 
+                $this->productSelected[] = $id;
             }
         }
     }
 
+
+    #[Title('products')]
     public function render()
     {
         return view('livewire.admin.product-page', [
