@@ -23,7 +23,11 @@ class FormProductCreate extends Component
 
     public function mount(): void
     {
-
+        $this->productRequest->description = "jawa anj";
+        $this->productRequest->short_description = "palembang rakus";
+        $this->productRequest->price = 1000.00;
+        $this->productRequest->weight = 100.00;
+        $this->productRequest->stock = 50;
     }
 
     public function updatedProductRequestName($value): void
@@ -35,7 +39,7 @@ class FormProductCreate extends Component
         try {
             $this->productRequest->category = $this->selectedCategory;
             $this->productRequest->store($service);
-        } catch (QueryException $exception) {
+        } catch (QueryException|Exception $exception) {
             $this->addError('name', $exception->getMessage());
         }
     }
@@ -44,7 +48,7 @@ class FormProductCreate extends Component
     {
         $this->productRequest->delete($productId, $service);
     }
-    
+
     #[Title('form-products-create')]
     public function render()
     {

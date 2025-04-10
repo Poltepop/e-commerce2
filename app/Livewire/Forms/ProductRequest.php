@@ -13,16 +13,21 @@ class ProductRequest extends Form
     public string $name = '';
     public string $slug = '';
     public string $price = '0';
+    public int $stock = 0;
     public string $weight = '';
     public ?string $short_description = null;
     public ?string $description = null;
     public ?string $status = null;
-    public bool $isVisble = false;
+    public bool $isVisible = false;
 
     #[Validate(rule:[
         'images' => ['required', 'min:1', 'max:3'],
         'images.*' => ['nullable', 'image'],
     ])]
+    /**
+     * Summary of images
+     * @var array<int,\Livewire\Features\SupportFileUploads\TemporaryUploadedFile>
+     */
     public array $images = [];
     public array $category = [];
 
@@ -36,7 +41,7 @@ class ProductRequest extends Form
         $product->weight = $this->weight;
         $product->short_description = $this->short_description;
         $product->description = $this->description;
-        $product->status = $this->isVisble ? 'visible' : 'new';
+        $product->status = $this->isVisible ? 'visible' : 'new';
 
         return $product;
     }
@@ -54,9 +59,11 @@ class ProductRequest extends Form
             'category.*.name' => ['required', 'string', 'max:100'],
         ]);
 
+        // dd($this->images);
+
         $product = $this->setProduct();
 
-        $productService->create($product, $this->category);
+        $productService->create($product, $this->category, $this->images);
     }
 
     public function update(ProductService $productService): void
