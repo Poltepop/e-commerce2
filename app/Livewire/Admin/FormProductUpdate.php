@@ -31,7 +31,8 @@ class FormProductUpdate extends Component
         $this->productRequest->status = $products->status;
     }
 
-    public function update(ProductService $productService){
+    public function update(ProductService $productService): void
+    {
         $this->productRequest->update( $productService);
     }
 

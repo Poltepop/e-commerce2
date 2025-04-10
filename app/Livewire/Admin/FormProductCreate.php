@@ -11,6 +11,7 @@ use App\Livewire\Forms\ProductRequest;
 use App\Models\Category;
 use App\Utils\HandleFileUpload;
 use App\Utils\InputSelectedCategory;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 
@@ -18,23 +19,22 @@ class FormProductCreate extends Component
 {
     use GenerateSlug, WithFileUploads, InputSelectedCategory, HandleFileUpload;
     public ProductRequest $productRequest;
-    public ?string $slug = null;
 
     public function mount(): void
     {
-        $this->productRequest->status = 'new';
+
     }
 
     public function updatedProductRequestName($value): void
     {
-        $this->slug = $this->generateProductSlug($value)->getSlug();
+        $this->productRequest->slug = $this->generateProductSlug($value)->getSlug();
     }
     public function create(ProductService $service): void
     {
         try {
             $this->productRequest->category = $this->selectedCategory;
             $this->productRequest->store($service);
-        } catch (Exception $exception) {
+        } catch (QueryException $exception) {
             $this->addError('name', $exception->getMessage());
         }
     }

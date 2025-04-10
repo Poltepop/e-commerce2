@@ -10,16 +10,19 @@ use Livewire\WithFileUploads;
 
 class ProductRequest extends Form
 {
-    #[Validate()]
     public string $name = '';
     public string $slug = '';
     public string $price = '0';
     public string $weight = '';
     public ?string $short_description = null;
     public ?string $description = null;
-    public string $status = '';
+    public ?string $status = null;
+    public bool $isVisble = false;
 
-    #[Validate(rule: 'max:3')]
+    #[Validate(rule:[
+        'images' => ['required', 'min:1', 'max:3'],
+        'images.*' => ['nullable', 'image'],
+    ])]
     public array $images = [];
     public array $category = [];
 
@@ -33,7 +36,7 @@ class ProductRequest extends Form
         $product->weight = $this->weight;
         $product->short_description = $this->short_description;
         $product->description = $this->description;
-        $product->status = $this->status;
+        $product->status = $this->isVisble ? 'visible' : 'new';
 
         return $product;
     }
@@ -42,13 +45,13 @@ class ProductRequest extends Form
     {
         $this->validate([
             'name' => ['required', 'string', 'min:5', 'max:100', 'unique:products,name'],
-            'price' => ['nullable', 'min:0'],
+            'price' => ['required', 'min:0'],
             'weight' => ['nullable',],
             'short_description' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'images' => ['nullable', 'max:3'],
-            'images.*' => ['nullable', 'image'],
-            'category' => ['required', 'min:1', 'max:5'],
+            'category' => ['required', 'array', 'min:1', 'max:5'],
+            'category.*.id' => ['required'],
+            'category.*.name' => ['required', 'string', 'max:100'],
         ]);
 
         $product = $this->setProduct();
@@ -80,6 +83,7 @@ class ProductRequest extends Form
     {
         return [
             'images.max' => 'Cant Upload More Than 3 Images',
+            'name.unique' => 'Product Already Exists',
         ];
     }
 }

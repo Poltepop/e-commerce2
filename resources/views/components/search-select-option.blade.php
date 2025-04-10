@@ -1,4 +1,10 @@
-@props(['disabled' => false, 'width' => 'w-full', 'data' => [], 'nodata' => 'no options match your search'])
+@props([
+    'disabled' => false,
+    'width' => 'w-full',
+    'data' => [],
+    'selectedItem' => 'selectedCategory',
+    'nodata' => 'no options match your search'
+])
 
 {{--
 
@@ -16,7 +22,7 @@ format $data must be array like this :
                 classOnFocus: 'border-gray-300',
                 isOpen: false,
                 itemLastHover: 0,
-                itemSelected: $wire.entangle('selectedCategory')
+                itemSelected: $wire.entangle('{{$selectedItem}}')
             }"
     x-on:click.outside="isOpen = false; classOnFocus = 'border-gray-300';">
 

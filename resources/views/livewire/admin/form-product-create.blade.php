@@ -16,7 +16,7 @@
         </div>
     </x-slot>
 
-    <form action="" wire:submit="create" method="post">
+    <form wire:submit.prevent="create" method="post">
         <div class="flex gap-2 flex-col lg:flex-row lg:gap-7">
             {{-- left --}}
             <div class="flex-auto flex gap-y-2 lg:gap-7 flex-col">
@@ -31,10 +31,9 @@
                                         type="text"
                                         name="name"
                                         wire:model.live.debounce.1000ms="productRequest.name"
-                                        :value="old('name')"
                                         autofocus
-                                        autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                        autocomplete="productRequest.name" />
+                            <x-input-error :messages="$errors->get('productRequest.name')" class="mt-2" />
                         </div>
 
                         {{-- Slug --}}
@@ -44,12 +43,12 @@
                                         class="block mt-1 w-full bg-gray-100"
                                         type="text"
                                         name="slug"
-                                        wire:model='slug'
+                                        wire:model='productRequest.slug'
                                         required
                                         autofocus
                                         autocomplete="slug"
                                         disabled/>
-                            <x-input-error :messages="$errors->get('slug')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('productRequest.slug')" class="mt-2" />
                         </div>
                     </div>
 
@@ -66,7 +65,6 @@
                                         :value="old('description')"
                                         autofocus
                                         autocomplete="description">
-                                            {{-- Value --}}
                                         </x-text-area>
                             <x-input-error :messages="$errors->get('productRequest.description')" class="mt-2" />
                         </div>
@@ -83,7 +81,7 @@
                                         autofocus
                                         autocomplete="short_description">
                                         </x-text-area>
-                            <x-input-error :messages="$errors->get('short_description')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('productRequest.short_description')" class="mt-2" />
                         </div>
                     </div>
                 </x-layout.admin.card>
@@ -99,7 +97,7 @@
                         wire:model.live.debounce.4000ms='productRequest.images'
                         :selectedImage="$selectedImage" />
                     <x-input-error
-                        :messages="$errors->get('images')"
+                        :messages="$errors->get('productRequest.images')"
                         class="mt-2" />
             </x-collapse>
 
@@ -118,11 +116,10 @@
                             type="text"
                             name="price"
                             wire:model="productRequest.price"
-                            :value="old('price')"
                             autofocus
                             autocomplete="price">
                         </x-text-input>
-                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('productRequest.price')" class="mt-2" />
                         </div>
 
                         {{-- Weight --}}
@@ -133,11 +130,10 @@
                             type="text"
                             name="weight"
                             wire:model="productRequest.weight"
-                            :value="old('weight')"
                             autofocus
                             autocomplete="weight">
                         </x-text-input>
-                        <x-input-error :messages="$errors->get('weight')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('productRequest.weight')" class="mt-2" />
                         </div>
                     </div>
 
@@ -149,7 +145,6 @@
                             class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
                             type="text"
                             name="qty"
-                            :value="old('qty')"
                             autofocus
                             autocomplete="qty">
                         </x-text-input>
@@ -166,12 +161,16 @@
                 <x-collapse class="w-full">
                     {{-- header card --}}
                     <x-slot:header>
+                        {{-- {{ var_dump($productRequest->status) }} --}}
                         Status
                     </x-slot:header>
 
                     {{-- visible menu toggle --}}
                     <div class="flex">
-                        <x-toggle color="orange" id="Visible"/>
+                        <x-toggle
+                            color="orange"
+                            id="Visible"
+                            wire:model.live='productRequest.status'/>
                         <x-input-label class="ml-2 font-bold" for="Visible">
                             Visible
                         </x-input-label>
@@ -213,7 +212,6 @@
 
                     {{-- Category --}}
                     <div class="flex flex-col gap-1">
-                        <x-input-error :messages="$errors->get('category')" class="mt-2" />
                         <x-input-label class="ml-1" for="Category">
                             Category<span class="text-red-500">*</span>
                         </x-input-label>
@@ -222,9 +220,11 @@
                             wire:model.live.debounce.200ms='inputCategory'
                             id="Category"
                             :data="$categories"
+                            selectedItem="selectedCategory"
                             placeholder="Select an Category"
                             nodata="No option match your search"
-                            width="w-full"/>
+                            width="w-full" />
+                        <x-input-error :messages="$errors->get('productRequest.category')" class="mt-2" />
                     </div>
                 </div>
                 </x-collapse>
@@ -233,7 +233,9 @@
 
         <div class="flex mt-2 lg:mt-7 gap-2">
             <button class="btn btn-warning rounded-xl" type="submit">Create</button>
-            <a href="{{ route('admin.products') }}" class="btn rounded-xl">Cancel</a>
+            <a href="{{ route('admin.products') }}"
+                class="btn rounded-xl"
+                wire:navigate>Cancel</a>
         </div>
     </form>
 </div>

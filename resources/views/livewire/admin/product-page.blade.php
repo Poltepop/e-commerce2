@@ -3,7 +3,7 @@
         {{-- breadcrumbs --}}
         <div class="breadcrumbs text-sm">
             <ul>
-                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/dashboard" wire:navigate>Dashboard</a></li>
                 <li>Products</li>
             </ul>
         </div>
@@ -67,7 +67,9 @@
             <td>{{ $product->description }}</td>
             <td>{{ $product->status }}</td>
             <th>
-                <a href="{{ route('form.product.update', $product->slug) }}" class="btn btn-ghost btn-xs">update</a>
+                <a href="{{ route('form.product.update', $product->slug) }}"
+                    wire:wire:navigate
+                    class="btn btn-ghost btn-xs">update</a>
             </th>
         </tr>
         @endforeach
