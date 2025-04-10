@@ -3,15 +3,15 @@
         {{-- breadcrumbs --}}
         <div class="breadcrumbs text-sm">
             <ul>
-                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/dashboard" wire:navigate>Dashboard</a></li>
                 <li>Products</li>
             </ul>
         </div>
 
         <div class="flex justify-between items-center">
-                <h1 class=" text-black font-extrabold text-3xl">
-                    Products
-                </h1>
+            <h1 class=" text-black font-extrabold text-3xl">
+                Products
+            </h1>
             <a href="{{ route('form.product.create') }}" class="btn btn-warning rounded-xl">Create</a>
         </div>
     </x-slot>
@@ -67,7 +67,9 @@
             <td>{{ $product->description }}</td>
             <td>{{ $product->status }}</td>
             <th>
-                <a href="{{ route('form.product.update', $product->slug) }}" class="btn btn-ghost btn-xs">update</a>
+                <a href="{{ route('form.product.update', $product->slug) }}"
+                    wire:wire:navigate
+                    class="btn btn-ghost btn-xs">update</a>
             </th>
         </tr>
         @endforeach
