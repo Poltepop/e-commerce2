@@ -9,9 +9,9 @@
         </div>
 
         <div class="flex justify-between items-center">
-            <x-layout.admin.header>
-                Products
-            </x-layout.admin.header>
+                <h1 class=" text-black font-extrabold text-3xl">
+                    Products
+                </h1>
             <a href="{{ route('form.product.create') }}" class="btn btn-warning rounded-xl">Create</a>
         </div>
     </x-slot>
