@@ -6,6 +6,7 @@ use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use App\Utils\InputSelectedCategory;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -13,6 +14,7 @@ class FormProductUpdate extends Component
 {   
     public ProductRequest $productRequest;
     public array $selectedImage = [];
+    #[Title('form-products-update')]
 
     public function mount($slug)
     {

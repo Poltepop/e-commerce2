@@ -10,9 +10,9 @@
         </div>
 
         <div class="flex justify-between items-center">
-            <x-layout.admin.header>
+            <h1 class=" text-black font-extrabold text-3xl">
                 Products Update
-            </x-layout.admin.header>
+            </h1>
         </div>
     </x-slot>
 
@@ -20,7 +20,7 @@
         <div class="flex gap-2 flex-col lg:flex-row lg:gap-7">
             {{-- left --}}
             <div class="flex-auto flex gap-y-2 lg:gap-7 flex-col">
-                <x-layout.admin.card class="w-full flex-col">
+                <x-card class="w-full flex-col">
                     {{-- Row 1 --}}
                     <div class="flex w-full gap-4 mb-6">
                         {{-- Product name --}}
@@ -85,7 +85,7 @@
                             <x-input-error :messages="$errors->get('productRequest.short_description')" class="mt-2" />
                         </div>
                     </div>
-                </x-layout.admin.card>
+                </x-card>
 
             {{-- Image --}}
             <x-collapse class="w-full">

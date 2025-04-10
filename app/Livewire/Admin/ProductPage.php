@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
 use App\Utils\SearchProduct;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class ProductPage extends Component
@@ -14,6 +15,8 @@ class ProductPage extends Component
     public array $productSelected = [];
     public array $allProductId = [];
     public bool $isSelectAll = false;
+
+    #[Title('products')]
 
     public function mount(): void
     {

@@ -52,7 +52,7 @@ format $data must be array like this :
         </div>
 
     </div>
-    <x-layout.admin.card class="px-1 py-1 gap-1 w-full flex-col rounded-xs border-gray-200 z-50 absolute max-h-52 overflow-y-auto mt-1" x-show="isOpen">
+    <x-card class="px-1 py-1 gap-1 w-full flex-col rounded-xs border-gray-200 z-50 absolute max-h-52 overflow-y-auto mt-1" x-show="isOpen">
         @forelse ($data as $item)
         @php
             $content = array_values($item);
@@ -89,5 +89,5 @@ format $data must be array like this :
         @empty
             <span class="block w-full p-2 text-sm text-gray-500">{{ $nodata }}</span>
         @endforelse
-    </x-layout.admin.card>
+    </x-card>
 </div>

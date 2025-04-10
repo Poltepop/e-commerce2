@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <x-layout.admin.header>
+        <h1 class=" text-black font-extrabold text-3xl">
             Dashboard
-        </x-layout.admin.header>
+        </h1>
     </x-slot>
 
     <div class="">
         <div class="max-w-7xl md:mx-auto ">
-            <x-layout.admin.card class=" text-black flex justify-between items-center">
+            <x-card class=" text-black flex justify-between items-center">
                 {{-- Avatar --}}
                 <div class="flex">
                     <div class="avatar">
@@ -33,21 +33,21 @@
                     </x-normal-button>
                 </form>
 
-            </x-layout.admin.card>
+            </x-card>
 
             <div class="flex mt-5">
-                <x-layout.admin.card class="w-full text-black mr-5 flex-col">
+                <x-card class="w-full text-black mr-5 flex-col">
                     <h1>Lorem ipsum dolor sit, amet consectetur adipisicing.</h1>
                     <h2 class="font-extrabold text-4xl">700</h2>
-                </x-layout.admin.card>
-                <x-layout.admin.card class="w-full text-black flex-col">
+                </x-card>
+                <x-card class="w-full text-black flex-col">
                     <h1 class="">Lorem ipsum dolor sit amet consectetur adipisicing.</h1>
                     <h2 class=" font-extrabold text-4xl">12</h2>
-                </x-layout.admin.card>
+                </x-card>
             </div>
-            <x-layout.admin.card class="w-full text-black h-80 mt-5 justify-center items-center">
+            <x-card class="w-full text-black h-80 mt-5 justify-center items-center">
                 Content
-            </x-layout.admin.card>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

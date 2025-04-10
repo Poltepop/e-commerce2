@@ -19,20 +19,20 @@
     {{-- Ket --}}
     <div class="mb-5 gap-4 md:gap-5 flex flex-col md:flex-row">
         {{-- total products --}}
-        <x-layout.admin.card class="w-full flex-col px-10">
+        <x-card class="w-full flex-col px-10">
             <h1 class=" text-gray-500">Total products</h1>
             <h2 class="text-4xl font-bold">{{ $productQty }}</h2>
-        </x-layout.admin.card>
+        </x-card>
         {{-- Products inventory --}}
-        <x-layout.admin.card class="w-full flex-col px-10">
+        <x-card class="w-full flex-col px-10">
             <h1 class=" text-gray-500">Product inventory</h1>
             <h2 class="text-4xl font-bold">66</h2>
-        </x-layout.admin.card>
+        </x-card>
         {{-- Avg Price --}}
-        <x-layout.admin.card class="w-full flex-col px-10">
+        <x-card class="w-full flex-col px-10">
             <h1 class=" text-gray-500">Average price</h1>
             <h2 class="text-4xl font-bold">Rp. {{ number_format($avgProductPrice, 2) }}</h2>
-        </x-layout.admin.card>
+        </x-card>
     </div>
 
 

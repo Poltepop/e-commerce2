@@ -11,19 +11,22 @@ use App\Livewire\Forms\ProductRequest;
 use App\Models\Category;
 use App\Utils\InputSelectedCategory;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
 
 class FormProductCreate extends Component
-{
+{   
     use GenerateSlug, WithFileUploads, InputSelectedCategory;
     public ProductRequest $productRequest;
     public ?string $slug = null;
     public array $selectedImage = [];
-
+    
     public function mount(): void
     {
         $this->productRequest->status = 'new';
     }
+
+    #[Title('form-products-create')]
 
     public function updatedProductRequestName($value): void
     {
