@@ -6,12 +6,18 @@ use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\FileUploadService;
 use App\Utils\GenerateSlug;
 use Exception;
 
 class ProductServiceImpl implements ProductService {
     use GenerateSlug;
-    public function create(Product $product, array $categories): void {
+
+    public function __construct(
+        private FileUploadService $fileUploadService
+    ){}
+
+    public function create(Product $product, array $categories, array $images): void {
         $product->status = empty(trim($product->status)) ? 'new' : $product->status;
         $product->slug = $this->generateProductSlug($product->name)->getSlug();
 
@@ -25,12 +31,14 @@ class ProductServiceImpl implements ProductService {
             'status' => $product->status,
         ]);
 
-        $filteredCategory = collect($categories)->pluck('content')->toArray();
+        $imagePaths = $this->fileUploadService->uploadMultipleImage($images, 'products');
 
-        $categoryIds = Category::select('id')->whereIn('name', $filteredCategory)
-                                ->get()
-                                ->pluck('id')
-                                ->toArray();
+        if (count($imagePaths) < count($images)) { throw new Exception("failed to upload image"); }
+
+        $categoryIds = array_values(
+            collect($categories)->pluck('id')->toArray()
+        );
+
         $newProduct->categories()->syncWithoutDetaching($categoryIds);
     }
 

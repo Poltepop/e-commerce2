@@ -1,10 +1,11 @@
-@props(['color' => 'blue'])
+@props(['color' => 'blue', 'bindto'])
 
-<label x-data="{ checked: false }" class="relative inline-flex items-center cursor-pointer">
+<label x-data="{ checked: $wire.entangle('{{$bindto}}') }" class="relative inline-flex items-center cursor-pointer">
     <input
         type="checkbox"
         x-model="checked"
         class="sr-only peer"
+        x-bind:checked="checked"
         {{ $attributes->merge([]) }}>
 
     <div

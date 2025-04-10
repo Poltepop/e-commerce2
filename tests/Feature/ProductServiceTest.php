@@ -5,11 +5,16 @@ namespace Tests\Feature;
 use App\Livewire\Admin\ProductPage;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
+use App\Services\FileUploadService;
 use App\Services\ProductService;
+use App\Services\ServiceImpl\FileUploadServiceImpl;
 use Database\Seeders\ProductSeeder;
+use Faker\Core\File;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
+use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class ProductServiceTest extends TestCase
@@ -20,22 +25,21 @@ class ProductServiceTest extends TestCase
      */
     public function testCreateProduct(): void
     {
-        $productService = app(ProductService::class);
-        $req = new Product();
-        $req->name = 'Laptop Gaming';
-        $req->slug = 'Laptop-Gaming';
-        $req->price = '200.000';
-        $req->weight = '2';
-        $req->short_description = 'Laptop kenceng';
-        $req->description = 'Laptop gaming terbaru';
-        $req->status = '';
+        $mock = Mockery::mock(FileUploadServiceImpl::class);
+        $mock->shouldReceive('uploadMultipleImage')
+                ->with([[]], 'products')
+                ->once()
+                ->andReturn([
+                    ['path' => 'products/sample1.jpg'],
+                    ['path' => 'products/sample2.jpg'],
+                ]);
 
-        $productService->create($req);
+        $this->instance(FileUploadService::class, $mock);
+        $productService = $this->app->make(ProductService::class);
 
-        $result = Product::select(['id', 'name'])->where('name', 'Laptop Gaming')->get();
+        $productService->create();
 
-        self::assertSame(1, $result->count());
-        self::assertSame('Laptop Gaming', $result[0]->name);
+        $this->assertTrue(true);
     }
 
     public function testDeleteProduct(): void

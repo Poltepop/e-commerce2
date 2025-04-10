@@ -143,12 +143,13 @@
                             <x-input-label for="Qty" :value="__('Quantity')"/>
                             <x-text-input  id="Qty"
                             class="block mt-1 w-full focus:border-orange-500 focus:ring-orange-500"
+                            wire:model="productRequest.stock"
                             type="text"
                             name="qty"
                             autofocus
                             autocomplete="qty">
                         </x-text-input>
-                        <x-input-error :messages="$errors->get('short_description')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('productRequest.stock')" class="mt-2" />
                         </div>
                     </div>
             </x-collapse>
@@ -168,6 +169,7 @@
                     {{-- visible menu toggle --}}
                     <div class="flex">
                         <x-toggle
+                            bindto="productRequest.isVisible"
                             color="orange"
                             id="Visible"
                             wire:model.live='productRequest.status'/>
