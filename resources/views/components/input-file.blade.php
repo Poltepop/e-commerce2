@@ -6,7 +6,7 @@
         <div class="self-start w-full">
             <div class="text-wrap py-2 flex gap-1 flex-wrap items-center justify-center w-full overflow-auto no-scroll">
                 @foreach ($selectedImage as $image)
-                <x-layout.admin.card class="w-full border-none flex py-0 md:py-0 justify-between gap-2 items-start bg-black">
+                <x-card class="w-full border-none flex py-0 md:py-0 justify-between gap-2 items-start bg-black">
                     <div class="w-full bg-black max-w-4xl flex max-h-[17em] overflow-x-auto rounded-lg z-0 relative no-scroll">
                         <img src="{{ $image->temporaryUrl() }}" alt="" class="w-full max-w-4xl scale-y-200 object-contain rounded-lg z-0 relative">
                     </div>
@@ -19,7 +19,7 @@
                         </button>
                         <span class="d-inline-block text-nowrap text-[.5em] md:text-[.8em] text-white">{{ $image->getClientOriginalName()}}</span>
                     </div>
-                </x-layout.admin.card>
+                </x-card>
 
                 @endforeach
             </div>
