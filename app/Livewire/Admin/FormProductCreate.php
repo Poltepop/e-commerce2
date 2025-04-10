@@ -13,6 +13,7 @@ use App\Utils\HandleFileUpload;
 use App\Utils\InputSelectedCategory;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
 
 class FormProductCreate extends Component
@@ -43,6 +44,8 @@ class FormProductCreate extends Component
     {
         $this->productRequest->delete($productId, $service);
     }
+    
+    #[Title('form-products-create')]
     public function render()
     {
         return view('livewire.admin.form-product-create');

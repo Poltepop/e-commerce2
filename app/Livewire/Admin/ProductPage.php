@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
 use App\Utils\SearchProduct;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class ProductPage extends Component
@@ -54,11 +55,13 @@ class ProductPage extends Component
                 $this->productSelected = array_values($this->productSelected);
             } else {
                 // add id
-                $this->productSelected[] = $id; 
+                $this->productSelected[] = $id;
             }
         }
     }
 
+
+    #[Title('products')]
     public function render()
     {
         return view('livewire.admin.product-page', [
