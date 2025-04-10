@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('weight', 8, 3)->nullable(false);
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['new','dalivered','cancelled'])->nullable(false)->default('new');
+            $table->enum('status', ['new','dalivered','cancelled','visible'])->nullable(false)->default('new');
             $table->timestamps();
         });
     }
