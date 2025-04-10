@@ -18,8 +18,9 @@ class ProductRequest extends Form
     public ?string $short_description = null;
     public ?string $description = null;
     public string $status = '';
+
     #[Validate(rule: 'max:3')]
-    public $images;
+    public array $images = [];
     public array $category = [];
 
 

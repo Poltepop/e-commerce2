@@ -89,17 +89,17 @@
 
             {{-- Image --}}
             <x-collapse class="w-full">
-                    <x-slot:header>
-                        Image
-                    </x-slot:header>
+                <x-slot:header>
+                    Image
+                </x-slot:header>
 
-                    <x-input-file
-                        multiple
-                        wire:model.live.debounce.4000ms='productRequest.images'
-                        :selectedImage="$selectedImage" />
-                    <x-input-error
-                        :messages="$errors->get('productRequest.images')"
-                        class="mt-2" />
+                <x-input-file
+                    multiple
+                    wire:model.live.debounce.4000ms='productRequest.images'
+                    :selectedImage="$selectedImage" />
+                <x-input-error
+                    :messages="$errors->get('images')"
+                    class="mt-2" />
             </x-collapse>
 
             {{-- variant --}}
@@ -219,6 +219,7 @@
                         <x-search-select-option
                             wire:model.live.debounce.200ms='inputCategory'
                             id="Category"
+                            :data="$categories"
                             placeholder="Select an Category"
                             nodata="No option match your search"
                             width="w-full"/>

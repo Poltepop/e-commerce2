@@ -19,4 +19,17 @@ class Product extends Model
     public function categories(){
         return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
     }
+
+    public function getCategoryIds(): array
+    {
+        return $this->belongsToMany(
+                        Category::class,
+                        'product_categories',
+                        'product_id',
+                        'category_id')
+                        ->select(['category_id'])
+                        ->get()
+                        ->pluck('category_id')
+                        ->toArray();
+    }
 }
