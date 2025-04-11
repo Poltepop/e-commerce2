@@ -30,7 +30,7 @@ class ProductServiceImpl implements ProductService {
             'slug' => $product->slug,
             'status' => $product->status,
         ]);
-
+        
         $imagePaths = $this->fileUploadService->uploadMultipleImage($images, 'products');
 
         if (count($imagePaths) < count($images)) { throw new Exception("failed to upload image"); }
@@ -68,6 +68,11 @@ class ProductServiceImpl implements ProductService {
     }
 
     public function createPoductCategory(array $array): void
+    {
+
+    }
+
+    public function storeMultipleImagePath(array $imagePaths): void
     {
 
     }

@@ -16,4 +16,10 @@ interface ProductService {
     public function update(int $productId, Product $product): void;
     public function delete(int $productId): void;
     public function createPoductCategory(array $array): void;
+    /**
+     * Summary of storeMultipleImagePath
+     * @param array<int,array{path: string}> $imagePaths
+     * @return void
+     */
+    public function storeMultipleImagePath(array $imagePaths): void;
 }
