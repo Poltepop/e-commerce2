@@ -6,6 +6,7 @@ use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImages;
 use App\Services\FileUploadService;
 use App\Utils\GenerateSlug;
 use Exception;
@@ -17,8 +18,8 @@ class ProductServiceImpl implements ProductService {
         private FileUploadService $fileUploadService
     ){}
 
-    public function create(Product $product, array $categories, array $images): void {
-        $product->status = empty(trim($product->status)) ? 'new' : $product->status;
+    public function create(Product $product, array $categories, array $images): void
+    {
         $product->slug = $this->generateProductSlug($product->name)->getSlug();
 
         $newProduct = Product::create([
@@ -31,9 +32,7 @@ class ProductServiceImpl implements ProductService {
             'status' => $product->status,
         ]);
 
-        $imagePaths = $this->fileUploadService->uploadMultipleImage($images, 'products');
-
-        if (count($imagePaths) < count($images)) { throw new Exception("failed to upload image"); }
+        $this->saveProductImages($images, $newProduct->id);
 
         $categoryIds = array_values(
             collect($categories)->pluck('id')->toArray()
@@ -67,8 +66,25 @@ class ProductServiceImpl implements ProductService {
         }
     }
 
-    public function createPoductCategory(array $array): void
+    public function createPoductCategories(array $categories): bool
     {
+        return Category::insert($categories);
+    }
 
+    public function saveProductImages(array $images, int $productId): void
+    {
+        try {
+            $imagePaths = $this->fileUploadService->storeMultipleImage($images, 'products', $productId);
+
+            if (count($imagePaths) < count($images)) throw new Exception("failed to store image");
+
+            $isSuccess = ProductImages::insert($imagePaths);
+
+            if (!$isSuccess) throw new Exception('Failed to store image');
+
+        } catch (Exception $exception) {
+            $this->fileUploadService->deleteMultipleImage($imagePaths);
+            throw new Exception($exception->getMessage());
+        }
     }
 }
