@@ -170,7 +170,7 @@
 
                     {{-- visible menu toggle --}}
                     <div class="flex">
-                        <x-toggle color="orange" id="Visible"/>
+                        <x-toggle color="orange" id="Visible" bindto="productRequest.isVisible"/>
                         <x-input-label class="ml-2 font-bold" for="Visible">
                             Visible
                         </x-input-label>

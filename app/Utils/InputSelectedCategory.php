@@ -10,14 +10,14 @@ trait InputSelectedCategory {
 
     /**
      * Format of selectedCategory
-     * [
-     *      ['id' => 1, 'name' => 'sample 1']
-     *      ['id' => 2, 'name' => 'sample 2']
-     * ]
-     * @var array
+     * @var array<int, array{id: int, name: string}>
      */
     public array $selectedCategory = [];
     public string $inputCategory = '';
+    /**
+     * Format of selectedCategory
+     * @var array<int, array{id: int, name: string}>
+     */
     public array $categories = [];
     public function updatedInputCategory($value): void
     {
