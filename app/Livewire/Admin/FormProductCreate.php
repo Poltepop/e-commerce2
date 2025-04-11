@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Models\Product;
 use App\Utils\GenerateSlug;
 use Exception;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use App\Services\ProductService;
 use App\Livewire\Forms\ProductRequest;
@@ -13,6 +14,7 @@ use App\Utils\HandleFileUpload;
 use App\Utils\InputSelectedCategory;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Testing\Fakes\Fake;
 use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
 
@@ -23,10 +25,11 @@ class FormProductCreate extends Component
 
     public function mount(): void
     {
+        $this->productRequest->name = fake()->sentence();
         $this->productRequest->description = "jawa anj";
         $this->productRequest->short_description = "palembang rakus";
         $this->productRequest->price = 1000.00;
-        $this->productRequest->weight = 100.00;
+        $this->productRequest->weight = 100.000;
         $this->productRequest->stock = 50;
     }
 
@@ -36,11 +39,12 @@ class FormProductCreate extends Component
     }
     public function create(ProductService $service): void
     {
+        $this->validate();
         try {
             $this->productRequest->category = $this->selectedCategory;
             $this->productRequest->store($service);
         } catch (QueryException|Exception $exception) {
-            $this->addError('name', $exception->getMessage());
+            $this->addError('productRequest.name', $exception->getMessage());
         }
     }
 
