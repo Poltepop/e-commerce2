@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ProductImages extends Model
 {
     protected $fillable = [
-        'path'
+        'path',
+        'product_id'
     ];
 
-    public function product():HasOne
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class, 'products_id', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 }
