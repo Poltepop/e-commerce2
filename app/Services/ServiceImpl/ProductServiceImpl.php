@@ -76,7 +76,7 @@ class ProductServiceImpl implements ProductService {
         try {
             $imagePaths = $this->fileUploadService->storeMultipleImage($images, 'products', $productId);
 
-            if (count($imagePaths) < count($images)) throw new Exception("failed to store image");
+            if (count($imagePaths) < count($images)) throw new Exception("Failed to store image");
 
             $isSuccess = ProductImages::insert($imagePaths);
 

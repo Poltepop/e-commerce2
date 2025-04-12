@@ -6,6 +6,7 @@ use App\Livewire\Admin\ProductPage;
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImages;
 use App\Services\FileUploadService;
 use App\Services\ProductService;
 use App\Services\ServiceImpl\FileUploadServiceImpl;
@@ -87,6 +88,68 @@ class ProductServiceTest extends TestCase
             })
         );
         $service->create($product, $categories, ['yus.jpg']);
+    }
+
+    public function test_success_save_multiple_image_product(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $product = Product::select(['id'])->first();
+        $images = ['jamal.jpg', 'eko.jpg'];
+
+        $mock = $this->mock(
+            FileUploadServiceImpl::class,
+            function(MockInterface $mock) use ($images, $product) {
+                $mock->shouldReceive('storeMultipleImage')
+                        ->with($images, 'products', $product->id)
+                        ->once()
+                        ->andReturn([
+                            ['path' => 'jamal.jpg', 'product_id' => $product->id],
+                            ['path' => 'eko.jpg', 'product_id' => $product->id],
+                        ]);
+        });
+
+        $this->app->instance(FileUploadService::class, $mock);
+        $productService = $this->app->make(ProductService::class);
+        $productService->saveProductImages($images, $product->id);
+
+
+        $this->assertDatabaseHas(ProductImages::class, ['path' => $images]);
+    }
+
+    public function test_failed_upload_image(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Failed to store image');
+
+        $product = Product::select(['id'])->first();
+        $images = ['jamal.jpg', 'eko.jpg'];
+
+        $mock = $this->mock(
+            FileUploadServiceImpl::class,
+            function(MockInterface $mock) use ($images, $product) {
+                $mock->shouldReceive('storeMultipleImage')
+                        ->with($images, 'products', $product->id)
+                        ->once()
+                        ->andReturn([
+                            ['path' => 'jamal.jpg', 'product_id' => $product->id],
+                        ]);
+
+                $mock->shouldReceive('deleteMultipleImage')
+                        ->with([
+                            ['path' => 'jamal.jpg', 'product_id' => $product->id]
+                        ])
+                        ->once()
+                        ->andReturnNull();
+        });
+
+        $this->app->instance(FileUploadService::class, $mock);
+        $productService = $this->app->make(ProductService::class);
+        $productService->saveProductImages($images, $product->id);
+
+        $this->assertDatabaseMissing(ProductImages::class, ['path' => $images]);
     }
 
     public function testCollection(): void
