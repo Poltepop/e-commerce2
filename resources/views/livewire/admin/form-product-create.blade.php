@@ -16,7 +16,7 @@
         </div>
     </x-slot>
 
-    <form wire:submit.prevent="create" method="post">
+    <form wire:submit.prevent="create" method="post" enctype="multipart/form-data">
         <div class="flex gap-2 flex-col lg:flex-row lg:gap-7">
             {{-- left --}}
             <div class="flex-auto flex gap-y-2 lg:gap-7 flex-col">
