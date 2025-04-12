@@ -4,7 +4,9 @@ namespace App\Livewire\Admin;
 
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
+use App\Services\ProductService;
 use App\Utils\SearchProduct;
+use Exception;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -21,6 +23,15 @@ class ProductPage extends Component
         $productid = Product::select(['id'])->get();
         foreach ($productid as $value) {
             $this->allProductId[] = $value->id;
+        }
+    }
+
+    public function deleteOne(ProductService $productService, int $productid): void
+    {
+        try {
+            $productService->delete($productid);
+        } catch (Exception $exception) {
+            //throw $th;
         }
     }
 
