@@ -60,9 +60,24 @@ class ProductServiceImpl implements ProductService {
 
     public function delete(int $productId): void
     {
-        $isExist = Product::select('id')->find($productId);
-        if ($isExist !== null) {
-            $isExist->delete();
+        $product = Product::select('id')->find($productId);
+        if ($product !== null) {
+            $imagesProduct = $product->productImages()->select('path');
+
+            $imagePaths = $imagesProduct->get()->toArray();
+
+            $this->fileUploadService->deleteMultipleImage($imagePaths);
+
+            $totalDelete = $imagesProduct->delete();
+
+            if ($totalDelete === 0) throw new Exception('delete fail');
+
+            $totalDelete = $product->categories()->detach();
+
+            if ($totalDelete === 0) throw new Exception('delete fail');
+
+            $totalDelete = $product->delete();
+            if ($totalDelete === 0) throw new Exception('delete fail');
         }
     }
 
