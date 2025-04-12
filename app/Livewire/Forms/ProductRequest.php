@@ -48,7 +48,6 @@ class ProductRequest extends Form
 
     public function store(ProductService $productService)
     {
-
         $product = $this->setProduct();
 
         $productService->create($product, $this->category, $this->images);

@@ -28,22 +28,24 @@ class FormProductCreate extends Component
         $this->productRequest->name = fake()->sentence();
         $this->productRequest->description = "jawa anj";
         $this->productRequest->short_description = "palembang rakus";
-        $this->productRequest->price = 1000.00;
-        $this->productRequest->weight = 100.000;
+        $this->productRequest->price = 1000.12;
+        $this->productRequest->weight = 100.131;
         $this->productRequest->stock = 50;
     }
 
     public function updatedProductRequestName($value): void
     {
-        $this->productRequest->slug = $this->generateProductSlug($value)->getSlug();
+        $this->productRequest->slug = $this->generateProductSlug($value)->getSlug() ?? '';
     }
-    public function create(ProductService $service): void
+    public function create(ProductService $service)
     {
+        $this->productRequest->category = $this->selectedCategory;
         $this->validate();
         try {
-            $this->productRequest->category = $this->selectedCategory;
             $this->productRequest->store($service);
-        } catch (QueryException|Exception $exception) {
+            notify()->success('success create product ' . $this->productRequest->name);
+            return response()->redirectToRoute('form.product.update', ['slug' => $this->productRequest->slug]);
+        } catch (Exception $exception) {
             $this->addError('productRequest.name', $exception->getMessage());
         }
     }
