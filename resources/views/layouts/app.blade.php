@@ -18,7 +18,10 @@
     </head>
     <body class="font-sans antialiased" data-theme="light">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            {{-- Navigation --}}
+            @isset($navigation)
+                @include('layouts.navigation')
+            @endisset
 
             <!-- Page Heading -->
             @isset($header)
@@ -31,11 +34,7 @@
 
             <!-- Page Content -->
             <main>
-                <div class="py-5">
-                    <div class="max-w-7xl mx-4 sm:px-6 md:mx-auto lg:px-8">
-                        {{ $slot }}
-                    </div>
-                </div>
+                {{ $slot }}
             </main>
         </div>
 
