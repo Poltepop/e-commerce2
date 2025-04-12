@@ -36,8 +36,8 @@ class Product extends Model
                         ->toArray();
     }
 
-    public function productImages():HasMany
+    public function productImages(): HasMany
     {
-        return $this->hasMany(ProductImages::class, 'products_id', 'id');
+        return $this->hasMany(ProductImages::class, 'product_id', 'id');
     }
 }

@@ -2,11 +2,17 @@
 
 namespace App\Services;
 
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+
 interface FileUploadService {
     /**
-     * images
-     * @param array<int,\Livewire\Features\SupportFileUploads\TemporaryUploadedFile> $images
-     * @return array<array{path: string}> number of path images
+     * @param array<int,TemporaryUploadedFile> $images
+     * @return array<array{path: string, product_id: int}> number of path images that success stored
      */
-    public function uploadMultipleImage(array $images, string $path): array;
+    public function storeMultipleImage(array $images, string $path, int $productId): array;
+    /**
+     * @param array<int, array{path: string}> $imagesPath
+     * @return void
+     */
+    public function deleteMultipleImage(array $imagesPath): void;
 }

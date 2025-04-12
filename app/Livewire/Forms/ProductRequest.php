@@ -48,19 +48,6 @@ class ProductRequest extends Form
 
     public function store(ProductService $productService)
     {
-        $this->validate([
-            'name' => ['required', 'string', 'min:5', 'max:100', 'unique:products,name'],
-            'price' => ['required', 'min:0'],
-            'weight' => ['nullable',],
-            'short_description' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'category' => ['required', 'array', 'min:1', 'max:5'],
-            'category.*.id' => ['required'],
-            'category.*.name' => ['required', 'string', 'max:100'],
-        ]);
-
-        // dd($this->images);
-
         $product = $this->setProduct();
 
         $productService->create($product, $this->category, $this->images);
@@ -84,6 +71,20 @@ class ProductRequest extends Form
     public function delete(int $productId, ProductService $productService): void
     {
         $productService->delete($productId);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:5', 'max:100', 'unique:products,name'],
+            'price' => ['required', 'min:0'],
+            'weight' => ['nullable',],
+            'short_description' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'category' => ['required', 'array', 'min:1', 'max:5'],
+            'category.*.id' => ['required'],
+            'category.*.name' => ['required', 'string', 'max:100'],
+        ];
     }
 
     protected function messages(): array
