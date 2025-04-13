@@ -1,16 +1,33 @@
 @props(['headers'])
 
-<div class=" bg-white rounded-2xl shadow-sm" x-data="{ selectAll: false }">
+<div class=" bg-white rounded-2xl shadow-sm"
+        x-data="{
+                    selectAll: false,
+                    productIds: [],
+                    selectedItems: [],
+                    selectedMethod: '',
+
+                    deleteMany() {
+                        $wire.deleteMany(this.selectedItems);
+                        console.log('helloDeleteMany');
+                    },
+
+                    updateMany() {
+                        $wire.updateMany(this.selectedItems);
+                        console.log('helloUpdateMany');
+                    },
+
+                    run() {
+                        if (typeof this[this.selectedMethod] === 'function') {
+                            this[this.selectedMethod]();
+                        }
+                    },
+                }">
     <div class="border-b-2 p-5 w-full flex justify-between gap-2">
-        {{-- <select class="select select-bordered w-full max-w-xs rounded-xl">
-            <option disabled selected>Who shot first?</option>
-            <option>Han Solo</option>
-            <option>Greedo</option>
-        </select> --}}
-        <x-input-select class="max-w-xs">
+        <x-input-select class="max-w-xs" x-model="selectedMethod" x-on:change="run()">
             <x-slot:disabled>Filltering</x-slot:disabled>
-            <option value="">Update</option>
-            <option value="">Delete</option>
+            <option value="updateMany" class="cursor-pointer">Update</option>
+            <option value="deleteMany" class="cursor-pointer">Delete</option>
         </x-input-select>
 
         <label class="input input-bordered flex items-center gap-2 rounded-xl">
@@ -42,14 +59,15 @@
                             <input
                                 type="checkbox"
                                 class="checkbox"
-                                x-on:click=" selectAll = selectAll ? false : true; console.log(selectAll);"
-                                wire:click="changeProductSelected(null, true)" />
+                                :checked="selectAll"
+                                x-on:change="selectAll ? selectedItems = productIds : selectedItems = [];"
+                                x-model="selectAll"/>
                         </label>
                     </th>
                     @foreach ($headers as $header)
                     <th>{{ $header }}</th>
                     @endforeach
-                </tr>   
+                </tr>
             </thead>
             <tbody>
                 {{ $slot }}

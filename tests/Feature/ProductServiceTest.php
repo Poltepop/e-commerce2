@@ -61,6 +61,21 @@ class ProductServiceTest extends TestCase
         $this->assertSame('jajan-makan', $isExists->slug);
     }
 
+    public function test_success_delete_one_product(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+        $product = Product::select(['id'])->first();
+
+        $product->categories()->attach([1, 2, 3, 4]);
+
+        $productService = $this->app->make(ProductService::class);
+        $productService->delete($product->id);
+
+        $productDeleted = Product::select('id')->find($product->id);
+
+        self::assertNull($productDeleted);
+    }
+
     public function test_failed_store_images_when_create_product(): void
     {
         $this->seed(DatabaseSeeder::class);
