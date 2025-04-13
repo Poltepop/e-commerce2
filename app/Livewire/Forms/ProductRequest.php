@@ -81,9 +81,9 @@ class ProductRequest extends Form
             'weight' => ['nullable',],
             'short_description' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'category' => ['required', 'array', 'min:1', 'max:5'],
-            'category.*.id' => ['required'],
-            'category.*.name' => ['required', 'string', 'max:100'],
+            'categories' => ['required', 'array', 'min:1', 'max:5'],
+            'categories.*.id' => ['required'],
+            'categories.*.name' => ['required', 'string', 'max:100'],
         ];
     }
 
