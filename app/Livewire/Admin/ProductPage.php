@@ -4,24 +4,43 @@ namespace App\Livewire\Admin;
 
 use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
+use App\Services\ProductService;
 use App\Utils\SearchProduct;
+use App\Utils\TableInterface;
+use Exception;
+use Illuminate\Foundation\ViteManifestNotFoundException;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-class ProductPage extends Component
+class ProductPage extends Component implements TableInterface
 {
     use SearchProduct;
     public ProductRequest $productRequest;
     public array $productSelected = [];
-    public array $allProductId = [];
-    public bool $isSelectAll = false;
 
     public function mount(): void
     {
-        $productid = Product::select(['id'])->get();
-        foreach ($productid as $value) {
-            $this->allProductId[] = $value->id;
+
+    }
+
+    public function deleteOneProduct(int $productid, ProductService $productService,): void
+    {
+        try {
+            dd($productid);
+            // $productService->delete($productid);
+        } catch (Exception $exception) {
+            //throw $th;
         }
+    }
+
+    public function deleteMany(array $productIds): void
+    {
+        // dd($productIds);
+    }
+
+    public function updateMany(array $dataIds): void
+    {
+
     }
 
     public function readProducts()
@@ -40,24 +59,6 @@ class ProductPage extends Component
     public function avgProductPrice()
     {
         return Product::select('price')->get()->avg('price');
-    }
-
-    public function changeProductSelected(?int $id = null, bool $selectAll = false): void
-    {
-        if ($selectAll) {
-            $this->isSelectAll = $this->isSelectAll ? false : true;
-            $this->productSelected = $this->isSelectAll ? $this->allProductId : [];
-        } else {
-            if (in_array($id, $this->productSelected)) {
-                // delete id
-                $this->productSelected = array_diff($this->productSelected, [$id]);
-                // reset index
-                $this->productSelected = array_values($this->productSelected);
-            } else {
-                // add id
-                $this->productSelected[] = $id;
-            }
-        }
     }
 
 
