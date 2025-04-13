@@ -1,6 +1,11 @@
 @props(['headers'])
 
-<div class=" bg-white rounded-2xl shadow-sm" x-data="{ selectAll: false }">
+<div class=" bg-white rounded-2xl shadow-sm"
+        x-data="{
+                    selectAll: false,
+                    productIds: [],
+                    selectedItems: []
+                }">
     <div class="border-b-2 p-5 w-full flex justify-between gap-2">
         <select class="select select-bordered w-full max-w-xs rounded-xl">
             <option disabled selected>Who shot first?</option>
@@ -37,14 +42,15 @@
                             <input
                                 type="checkbox"
                                 class="checkbox"
-                                x-on:click=" selectAll = selectAll ? false : true; console.log(selectAll);"
-                                wire:click="changeProductSelected(null, true)" />
+                                :checked="selectAll"
+                                x-on:change="selectedItems = productIds;"
+                                x-model="selectAll"/>
                         </label>
                     </th>
                     @foreach ($headers as $header)
                     <th>{{ $header }}</th>
                     @endforeach
-                </tr>   
+                </tr>
             </thead>
             <tbody>
                 {{ $slot }}

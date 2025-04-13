@@ -38,19 +38,26 @@
 
     {{-- <x-layout.admin.card> --}}
         {{-- table --}}
-       <x-table :headers="['Image','Name','Price','Weight','Short Description', 'Description', 'status', 'Aksi']">
+       <x-table :headers="['Image', 'Name', 'Price', 'Weight', 'Short Description', 'Description', 'status', 'Aksi']">
         @foreach ($products as $product)
         <tr wire:key='{{ $product->id }}'>
-            <th>
+            <td x-data="{
+                            idItem: {{$product->id}},
+                            isChecked: function () {
+                                return selectedItems.includes(this.idItem)
+                            }
+                        }">
                 <label>
                     <input
                         type="checkbox"
                         class="checkbox"
                         value="{{ $product->id }}"
-                        x-bind:checked="selectAll"
-                        wire:click='changeProductSelected({{ $product->id }})'/>
+                        x-bind:checked="isChecked()"
+                        x-model.number="selectedItems"
+                        x-init="productIds.push(idItem);"
+                        x-on:change="console.log(selectedItems); selectAll = selectAll ? false : false;"/>
                 </label>
-            </th>
+            </td>
             <td>
                 <div class="avatar">
                     <div class="mask mask-squircle h-12 w-12">
@@ -60,7 +67,7 @@
                     </div>
               </div>
             </td>
-            <td>{{ $product->name }}</td>
+            <td>{{ json_encode($productSelected, JSON_PRETTY_PRINT) }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->weight }}</td>
             <td>{{ $product->short_description }}</td>
@@ -70,6 +77,10 @@
                 <a href="{{ route('form.product.update', $product->slug) }}"
                     wire:wire:navigate
                     class="btn btn-ghost btn-xs">update</a>
+                <button
+                    type="btn" class="btn btn-error btn-xs"
+                    x-on:click="$wire.deleteManyProduct(selectedItems); console.log('hello btn');"
+                    >delete</button>
             </th>
         </tr>
         @endforeach
