@@ -38,46 +38,6 @@
                 </x-card>
             </div>
 
-
-                {{-- table --}}
-               <x-table :headers="['Image','Name','Price','Weight','Short Description', 'Description', 'status', 'Aksi']">
-                @foreach ($products as $product)
-                <tr wire:key='{{ $product->id }}'>
-                    <th>
-                        <label>
-                            <input
-                                type="checkbox"
-                                class="checkbox"
-                                value="{{ $product->id }}"
-                                x-bind:checked="selectAll"
-                                wire:click='changeProductSelected({{ $product->id }})'/>
-                        </label>
-                    </th>
-                    <td>
-                        <div class="avatar">
-                            <div class="mask mask-squircle h-12 w-12">
-                                <img
-                                src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                                alt="Avatar Tailwind CSS Component" />
-                            </div>
-                      </div>
-                    </td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ $product->price }}</td>
-                    <td>{{ $product->weight }}</td>
-                    <td>{{ $product->short_description }}</td>
-                    <td>{{ $product->description }}</td>
-                    <td>{{ $product->status }}</td>
-                    <th>
-                        <a href="{{ route('form.product.update', $product->slug) }}"
-                            wire:wire:navigate
-                            class="btn btn-ghost btn-xs">update</a>
-                    </th>
-                </tr>
-                @endforeach
-               </x-table>
-        </div>
-    </div>
     {{-- <x-layout.admin.card> --}}
         {{-- table --}}
        <x-table :headers="['Image', 'Name', 'Price', 'Weight', 'Short Description', 'Description', 'status', 'Aksi']">
@@ -109,7 +69,7 @@
                     </div>
               </div>
             </td>
-            <td>{{ json_encode($productSelected, JSON_PRETTY_PRINT) }}</td>
+            <td>{{ $product->name }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->weight }}</td>
             <td>{{ $product->short_description }}</td>
@@ -121,7 +81,7 @@
                     class="btn btn-ghost btn-xs">update</a>
                 <button
                     type="btn" class="btn btn-error btn-xs"
-                    x-on:click="$wire.deleteManyProduct(selectedItems); console.log('hello btn');"
+                    x-on:click="$wire.deleteOneProduct({{$product->id}});"
                     >delete</button>
             </th>
         </tr>
