@@ -15,7 +15,7 @@
                     <h1 class=" text-black font-extrabold text-3xl">
                         Products
                     </h1>
-                    <a href="{{ route('form.product.create') }}" class="btn btn-warning rounded-xl">Create</a>
+                    <a wire:navigate href="{{ route('form.product.create') }}" class="btn btn-warning rounded-xl">Create</a>
                 </div>
             </x-slot>
 
@@ -77,7 +77,7 @@
             <td>{{ $product->status }}</td>
             <td>
                 <a href="{{ route('form.product.update', $product->slug) }}"
-                    wire:wire:navigate
+                    wire:navigate
                     class="btn btn-ghost btn-xs">update</a>
                 <button
                     type="btn" class="btn btn-error btn-xs"
