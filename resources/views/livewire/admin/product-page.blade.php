@@ -75,7 +75,7 @@
             <td>{{ $product->short_description }}</td>
             <td>{{ $product->description }}</td>
             <td>{{ $product->status }}</td>
-            <th>
+            <td>
                 <a href="{{ route('form.product.update', $product->slug) }}"
                     wire:wire:navigate
                     class="btn btn-ghost btn-xs">update</a>
@@ -83,7 +83,7 @@
                     type="btn" class="btn btn-error btn-xs"
                     x-on:click="$wire.deleteOneProduct({{$product->id}});"
                     >delete</button>
-            </th>
+            </td>
         </tr>
         @endforeach
        </x-table>
