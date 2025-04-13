@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use App\Utils\SearchProduct;
 use Exception;
+use Illuminate\Foundation\ViteManifestNotFoundException;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -15,15 +16,10 @@ class ProductPage extends Component
     use SearchProduct;
     public ProductRequest $productRequest;
     public array $productSelected = [];
-    public array $allProductId = [];
-    public bool $isSelectAll = false;
 
     public function mount(): void
     {
-        $productid = Product::select(['id'])->get();
-        foreach ($productid as $value) {
-            $this->allProductId[] = $value->id;
-        }
+
     }
 
     public function deleteOne(ProductService $productService, int $productid): void
@@ -33,6 +29,16 @@ class ProductPage extends Component
         } catch (Exception $exception) {
             //throw $th;
         }
+    }
+
+    public function deleteManyProduct(array $productIds): void
+    {
+        dd($productIds);
+    }
+
+    public function setSelectedProduct(array $productSelected): void
+    {
+        $this->productSelected = $productSelected;
     }
 
     public function readProducts()
@@ -51,24 +57,6 @@ class ProductPage extends Component
     public function avgProductPrice()
     {
         return Product::select('price')->get()->avg('price');
-    }
-
-    public function changeProductSelected(?int $id = null, bool $selectAll = false): void
-    {
-        if ($selectAll) {
-            $this->isSelectAll = $this->isSelectAll ? false : true;
-            $this->productSelected = $this->isSelectAll ? $this->allProductId : [];
-        } else {
-            if (in_array($id, $this->productSelected)) {
-                // delete id
-                $this->productSelected = array_diff($this->productSelected, [$id]);
-                // reset index
-                $this->productSelected = array_values($this->productSelected);
-            } else {
-                // add id
-                $this->productSelected[] = $id;
-            }
-        }
     }
 
 
