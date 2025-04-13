@@ -60,7 +60,7 @@
                                 type="checkbox"
                                 class="checkbox"
                                 :checked="selectAll"
-                                x-on:change="selectedItems = productIds;"
+                                x-on:change="selectAll ? selectedItems = productIds : selectedItems = [];"
                                 x-model="selectAll"/>
                         </label>
                     </th>
