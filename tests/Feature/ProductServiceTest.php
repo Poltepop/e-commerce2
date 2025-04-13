@@ -16,6 +16,7 @@ use Database\Seeders\ProductSeeder;
 use Exception;
 use Faker\Core\File;
 use Illuminate\Container\Attributes\Database;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
@@ -66,7 +67,8 @@ class ProductServiceTest extends TestCase
         $this->seed(DatabaseSeeder::class);
         $product = Product::select(['id'])->first();
 
-        $product->categories()->attach([1, 2, 3, 4]);
+        $product->categories()->sync([1, 2, 3, 4]);
+        $product->productImages()->create(['path' => 'dummy/eko.jpg']);
 
         $productService = $this->app->make(ProductService::class);
         $productService->delete($product->id);
@@ -165,6 +167,41 @@ class ProductServiceTest extends TestCase
         $productService->saveProductImages($images, $product->id);
 
         $this->assertDatabaseMissing(ProductImages::class, ['path' => $images]);
+    }
+
+    public function test_success_update_product_images(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+        $product = Product::select(['id', 'name'])->first();
+        $product->productImages()->create(['path' => 'dummy/eko.jpg']);
+
+
+        $images = ['jamal.jpg'];
+
+        $mock = $this->mock(
+            FileUploadServiceImpl::class,
+            function(MockInterface $mock) use ($images, $product) {
+                $mock->shouldReceive('storeMultipleImage')
+                        ->with($images, 'products', $product->id)
+                        ->once()
+                        ->andReturn([
+                            ['path' => 'jamal.jpg', 'product_id' => $product->id],
+                        ]);
+
+                $mock->shouldReceive('deleteMultipleImage')
+                        ->with(Mockery::any())
+                        ->once()
+                        ->andReturnNull();
+        });
+
+        $this->app->instance(FileUploadService::class, $mock);
+        $productService = $this->app->make(ProductService::class);
+
+        $productService->updateProductImages($product, $images);
+
+        self::assertTrue(true);
+        self::assertDatabaseHas(ProductImages::class, ['path' => 'jamal.jpg']);
+        self::assertDatabaseMissing(ProductImages::class, ['path' => 'dummy/eko.jpg']);
     }
 
     public function testCollection(): void

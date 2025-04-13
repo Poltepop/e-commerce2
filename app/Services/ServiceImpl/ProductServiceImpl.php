@@ -41,13 +41,13 @@ class ProductServiceImpl implements ProductService {
         $newProduct->categories()->syncWithoutDetaching($categoryIds);
     }
 
-    public function update(int $productId, Product $product): void
+    public function update(int $productId, Product $product, array $categories, array $images): void
     {
         $productUpdate = Product::find($productId);
 
-        if($productUpdate->exists())
+        if($productUpdate->exists()) {
             $slug = $this->generateProductSlug($product->name)->getSlug();
-            $productUpdate?->update([
+            $productUpdate->update([
                 'name' => $product->name,
                 'slug' => $slug,
                 'price' => $product->price,
@@ -56,6 +56,7 @@ class ProductServiceImpl implements ProductService {
                 'description' => $product->description,
                 'status' => $product->status,
             ]);
+        }
     }
 
     public function delete(int $productId): void
@@ -81,11 +82,6 @@ class ProductServiceImpl implements ProductService {
         }
     }
 
-    public function createPoductCategories(array $categories): bool
-    {
-        return Category::insert($categories);
-    }
-
     public function saveProductImages(array $images, int $productId): void
     {
         try {
@@ -99,6 +95,28 @@ class ProductServiceImpl implements ProductService {
 
         } catch (Exception $exception) {
             $this->fileUploadService->deleteMultipleImage($imagePaths);
+            throw new Exception($exception->getMessage());
+        }
+    }
+
+    public function updateProductImages(Product $productFoundById, array $newImages): void
+    {
+        try {
+            $oldImages = ProductImages::select(['path', 'product_id'])
+                                        ->where('product_id', $productFoundById->id)
+                                        ->get()
+                                        ->toArray();
+            $deletedImages = $productFoundById->productImages()->delete();
+
+            if($deletedImages === 0) throw new Exception('failed to update image');
+
+            $this->fileUploadService->deleteMultipleImage($oldImages);
+
+           $imagePaths = $this->fileUploadService->storeMultipleImage($newImages, 'products', $productFoundById->id);
+
+           $isSuccess = ProductImages::insert($imagePaths);
+           if (!$isSuccess) throw new Exception('Failed to store image');
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
     }
