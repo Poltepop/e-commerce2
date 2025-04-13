@@ -15,11 +15,17 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 poppins: ['Poppins', 'sans-serif'],
             },
+            screens: {
+                laptop: '1400px', 
+                tablet: '1030px',
+                hanphone: '510px'
+            }
         },
     },
 
     plugins: [
         forms,
         require('daisyui'),
+        require('tailwindcss-motion'),
     ],
 };

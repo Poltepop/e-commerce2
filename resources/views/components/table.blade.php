@@ -7,16 +7,21 @@
                     selectedItems: []
                 }">
     <div class="border-b-2 p-5 w-full flex justify-between gap-2">
-        <select class="select select-bordered w-full max-w-xs rounded-xl">
+        {{-- <select class="select select-bordered w-full max-w-xs rounded-xl">
             <option disabled selected>Who shot first?</option>
             <option>Han Solo</option>
             <option>Greedo</option>
-        </select>
+        </select> --}}
+        <x-input-select class="max-w-xs">
+            <x-slot:disabled>Filltering</x-slot:disabled>
+            <option value="">Update</option>
+            <option value="">Delete</option>
+        </x-input-select>
 
         <label class="input input-bordered flex items-center gap-2 rounded-xl">
             <input
                 type="text"
-                class="grow"
+                class="grow border-none focus:ring-0"
                 placeholder="Search"
                 wire:model.live.debounce.1000ms='searchUser' />
             <svg
