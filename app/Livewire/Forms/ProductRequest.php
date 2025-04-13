@@ -29,7 +29,7 @@ class ProductRequest extends Form
      * @var array<int,\Livewire\Features\SupportFileUploads\TemporaryUploadedFile>
      */
     public array $images = [];
-    public array $category = [];
+    public array $categories = [];
 
 
     public function setProduct(): Product
@@ -50,7 +50,7 @@ class ProductRequest extends Form
     {
         $product = $this->setProduct();
 
-        $productService->create($product, $this->category, $this->images);
+        $productService->create($product, $this->categories, $this->images);
     }
 
     public function update(ProductService $productService): void

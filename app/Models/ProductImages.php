@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ProductImages extends Model
 {
+    public $timestamps = false;
     protected $fillable = [
         'path',
         'product_id'

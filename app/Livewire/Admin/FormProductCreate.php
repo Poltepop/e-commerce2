@@ -39,7 +39,7 @@ class FormProductCreate extends Component
     }
     public function create(ProductService $service)
     {
-        $this->productRequest->category = $this->selectedCategory;
+        $this->productRequest->categories = $this->selectedCategory;
         $this->validate();
         try {
             $this->productRequest->store($service);
