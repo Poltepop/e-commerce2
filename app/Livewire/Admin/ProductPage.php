@@ -6,12 +6,13 @@ use App\Livewire\Forms\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use App\Utils\SearchProduct;
+use App\Utils\TableInterface;
 use Exception;
 use Illuminate\Foundation\ViteManifestNotFoundException;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-class ProductPage extends Component
+class ProductPage extends Component implements TableInterface
 {
     use SearchProduct;
     public ProductRequest $productRequest;
@@ -22,23 +23,24 @@ class ProductPage extends Component
 
     }
 
-    public function deleteOne(ProductService $productService, int $productid): void
+    public function deleteOneProduct(int $productid, ProductService $productService,): void
     {
         try {
-            $productService->delete($productid);
+            dd($productid);
+            // $productService->delete($productid);
         } catch (Exception $exception) {
             //throw $th;
         }
     }
 
-    public function deleteManyProduct(array $productIds): void
+    public function deleteMany(array $productIds): void
     {
-        dd($productIds);
+        // dd($productIds);
     }
 
-    public function setSelectedProduct(array $productSelected): void
+    public function updateMany(array $dataIds): void
     {
-        $this->productSelected = $productSelected;
+
     }
 
     public function readProducts()
