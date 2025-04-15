@@ -12,6 +12,7 @@ class Category extends Model
         'slug',
     ];
 
+    public $timestamps = false;
     public function products():BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_categories', 'category_id', 'product_id');

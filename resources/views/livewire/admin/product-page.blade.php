@@ -78,7 +78,7 @@
             <td>
                 <a href="{{ route('form.product.update', $product->slug) }}"
                     wire:navigate
-                    class="btn btn-ghost btn-xs">update</a>
+                    class="btn btn-xs btn-warning">update</a>
                 <button
                     type="btn" class="btn btn-error btn-xs"
                     x-on:click="$wire.deleteOneProduct({{$product->id}});"

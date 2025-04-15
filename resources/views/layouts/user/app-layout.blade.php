@@ -18,7 +18,6 @@
     </head>
     <body class="font-sans antialiased" data-theme="light">
         <div class="min-h-screen bg-gray-100">
-            <h1>user AppLayout</h1>
             {{-- Navigation --}}
             @isset($navigation)
                 @include('layouts.navigation')
