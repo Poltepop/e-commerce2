@@ -24,13 +24,9 @@ class FormProductUpdate extends Component
 
         $this->setSelectedCategory(slug: $slug);
 
-        $this->productRequest->name = $products->name;
-        $this->productRequest->slug = $products->slug;
-        $this->productRequest->price = $products->price;
-        $this->productRequest->weight = $products->weight;
-        $this->productRequest->short_description = $products->short_description;
-        $this->productRequest->description = $products->description;
-        $this->productRequest->status = $products->status;
+        $this->productRequest->fill(
+            $products->only('name','slug','price','weight','short_description','description','status'),
+        );
     }
 
     public function update(ProductService $productService): void

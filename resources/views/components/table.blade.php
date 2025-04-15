@@ -49,7 +49,7 @@
         </label>
     </div>
 
-    <div class="overflow-x-auto w-ful">
+    <div class="overflow-x-auto w-full">
         <table class="table">
             <!-- head -->
             <thead>
