@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Home extends Component
 {
-    #[Layout('components.layout.app')]
+    #[Layout('layouts.user.app')]
     public function render()
     {
         return view('livewire.user.home');
