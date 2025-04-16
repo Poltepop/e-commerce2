@@ -1,9 +1,9 @@
 <div>
-    <x-layout.title/>
+    <x-user.title/>
     
     <div class="mx-2 md:mx-10">
         {{-- navigation --}}
-        <x-layout.navigation/>
+        <x-user.navigation/>
         {{-- Banner --}}
         <div class="mb-5 lg:mb-10">
             <img src="{{ asset('storage/img/banner.jpg') }}" alt="" class="w-full rounded-lg object-cover min-h-40 max-h-80 md:rounded-2xl">
