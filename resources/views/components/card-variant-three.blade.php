@@ -1,7 +1,7 @@
 
 <div {{ $attributes->merge(['class' => 'rounded-xl md:rounded-3xl bg-white w-full max-w-44 min-w-44 md:max-w-56 md:min-w-56']) }} x-data="{open: false}">
     <div  @click="open = ! open">
-        <div class="flex justify-between items-start relative mt-4 px-2">
+        <div class="flex justify-between items-start relative mt-4 px-3">
             <span class="text-sm font-bold">Lorem ipsum</span>
             <div class="flex flex-col absolute items-end right-0 w-full mr-2">
                 
@@ -19,9 +19,9 @@
         </div>
         
         <div class="flex items-center justify-center mt-2">
-            <img src="{{ asset('storage/img/card.jpg') }}" alt="" class=" rounded h-28 w-28 md:h-32 md:w-28">
+            <img src="{{ asset('storage/img/card.jpg') }}" alt="" class=" rounded h-28 w-28 md:h-40 md:w-36">
         </div>
-    <div class="mt-0.5 flex flex-col gap-1 p-2">
+    <div class="flex flex-col gap-1 p-5">
     <p class="text-xs">Lorem ipsum dolor sit amet.</p>
     <div class="rating rating-xs">
         <input type="radio" name="rating-5" class="mask mask-star-2 bg-orange-400" />
